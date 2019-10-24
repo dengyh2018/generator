@@ -1,0 +1,6 @@
+ methodType取值
+    仅查询方法 q  
+    仅更新方法 u 
+    仅删除方法 d 
+  生成查询 更新 删除 qud  
+ paramType 方法参数调节类型    取值 参考枚举类 ParamConditionEnum   

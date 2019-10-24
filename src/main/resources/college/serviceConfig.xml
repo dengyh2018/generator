@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+    <!--配置生成controlGenerator类路径 -->
+    <!--<controlGenerator targetPackage="${targetPackageControllerXxx}"-->
+                      <!--targetProject="${targetProjectControllerXxx}">-->
+    <!--</controlGenerator>-->
+
+    <!--配置生成javaServiceGenerator类路径 -->
+    <!--<javaServiceGenerator interfacePackage="${interfacePackageServiceXxx}"-->
+                          <!--classPackage="${classPackageServiceXxx}"-->
+                          <!--targetProject="${targetProjectServiceXxx}">-->
+    <!--</javaServiceGenerator>-->
+
+    <!--配置生成javaServiceGenerator类路径 -->
+    <javaServiceGenerator interfacePackage="com.aomygod.college.modules.service"
+                          classPackage="com.aomygod.college.modules.service.impl"
+                          targetProject="D:/wuspaces/o2o/o2o-college/o2o-college-service/src/main/java">
+    </javaServiceGenerator>
+
+</root>

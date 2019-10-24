@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table tableName="tb_intf_api_main">
+	<method methodType="qdu" resultForQuery="1">
+		<and>
+			<column name="id" paramType="3">
+			</column>
+		</and>
+	</method>
+	<method methodType="qd" resultForQuery="n">
+		<and>
+			<column name="classify_id" paramType="3">
+			</column>
+		</and>
+	</method>
+	<method methodType="q" resultForQuery="n">
+		<and>
+			<column name="classify_id" paramType="3">
+			</column>
+			<column name="author" paramType="3">
+			</column>
+		</and>
+	</method>
+	<method methodType="q" resultForQuery="n">
+		<and>
+			<column name="name" paramType="13">
+			</column>
+		</and>
+		<ors>
+			<or>
+				<column name="url" paramType="13">
+				</column>
+			</or>
+		</ors>
+	</method>
+</table>

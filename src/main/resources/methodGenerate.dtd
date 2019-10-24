@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	 table元素表示数据库表 只有1个
+	<br/>
+  	<b>属性tableName</b> 数据库表名
+-->
+<!ELEMENT table+ (method+)>
+ 
+<!ATTLIST table tableName| CDATA #REQUIRED>
+
+<!--
+    method元素 可以有1个或多个
+    <br/>
+  	<b>属性methodType</b> 取值为字母<b>q</b> <b>u</b> <b>d</b> 的组合，不区分大小写、<br/>
+          &nbsp;&nbsp;&nbsp;q 根据条件生成<b>查询</b>方法<br/>
+          &nbsp;&nbsp;&nbsp;u 根据条件生成<b>更新</b>方法<br/>
+          &nbsp;&nbsp;&nbsp;d 根据条件生成<b>删除</b>方法<br/>
+    <br/>
+    <b>属性resultForQuery</b> 取值 为  <b>1</b>或 <b>n</b> ，表示生成查询方法时返回值是单个实体还是List类型的多个实体。<br/>
+    <br/>
+    <pre>
+      example.createCriteria().andNameLike(name1);
+        example.or().andUrlLike(urlo1);
+    </pre>    
+-->
+
+<!ELEMENT method (and,ors?)>
+<!ATTLIST method methodType (qud|qu|qd|ud|q|u|d) #REQUIRED>
+<!ATTLIST method resultForQuery (1|n) #REQUIRED>
+<!--
+  	<b>元素and</b>配置条件and
+-->
+<!ELEMENT and (column+)>
+<!--
+  	<ors></ors>只有0个或1个
+-->
+<!ELEMENT ors (or+)>
+<!--
+  	<ors></ors>只有1个或多个
+-->
+<!ELEMENT or (column+)>
+<!--
+  	<b>元素column</b> 配置查询列 有1个或多个<br/>
+  	<b>name</b>属性，指定数据表列名，同一<and>或<or> 下name可以有多个相同的名称
+  	<br/><b>paramType</b> 条件类型：条件类型如下，1表示IsNull，2表示IsNotNull，按箭头顺序依次增大，14表示NotLike
+-->
+<!ELEMENT column EMPTY>
+<!ATTLIST column name CDATA #REQUIRED>
+<!ATTLIST column paramType (IsNull|IsNotNull|EqualTo|NotEqualTo|GreaterThan|GreaterThanOrEqualTo|LessThan|LessThanOrEqualTo|In|NotIn|Between|NotBetween|Like|NotLike) "EqualTo" CDATA #REQUIRED>
+
+<!--
+  	
+-->
+
+
+
+
+
+
+
+
+
+
+
+

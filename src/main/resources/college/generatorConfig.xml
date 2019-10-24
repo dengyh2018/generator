@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!-- 配置文件 -->
+    <properties resource="init.properties"/>
+
+    <!--配置驱动路径 -->
+    <classPathEntry location="${classPath}"/>
+
+    <!-- 一个数据库一个context -->
+    <!--<context id="infoGuardian">
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />-->
+
+    <context id="Tables" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <!--<context id="infoGuardian">-->
+        <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />-->
+        <!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>-->
+
+        <!-- 注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/>
+            <!-- <property name="suppressDate" value="true" /> -->
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 配置数据库连接 -->
+        <jdbcConnection driverClass="${driverClass}"
+                        connectionURL="${jdbc_url}" userId="${jdbc_user}" password="${jdbc_password}">
+        </jdbcConnection>
+
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--配置生成Java类路径 -->
+        <javaModelGenerator targetPackage="${targetPackageModelXxx}"
+                            targetProject="${modelProjectXxx}">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+
+        <!--配置生成xml路径 -->
+        <sqlMapGenerator targetPackage="${targetPackageMapXxx}"
+                         targetProject="${mapProjectXxx}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 可选配置 配置dao路径 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="${targetPackageClientXxx}"
+                             targetProject="${clientProjectXxx}">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="college_class" domainObjectName="CollegeClassBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="college_class_category" domainObjectName="CollegeClassCategoryBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+        <table tableName="college_class_relate" domainObjectName="CollegeClassRelateBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+        <table tableName="college_class_source" domainObjectName="CollegeClassSourceBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+        <table tableName="college_statistics_study" domainObjectName="CollegeStatisticsStudyBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+        <table tableName="college_study_cache" domainObjectName="CollegeStudyCacheBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+        <table tableName="college_study_his" domainObjectName="CollegeStudyHisBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+        <table tableName="college_study_like_his" domainObjectName="CollegeStudyLikeHisBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+        <table schema="${schema}" tableName="college_study" domainObjectName="CollegeStudyBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+        <table schema="${schema}" tableName="college_statistics_daystudy"
+               domainObjectName="CollegeStatisticsDayStudyBase"
+               enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+    </context>
+
+</generatorConfiguration>
+
