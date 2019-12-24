@@ -1,0 +1,60 @@
+.amg-m{}
+.amg-m .amg-l ,.amg-m .amg-e{}
+
+.amg-m .amg-list{
+
+}
+.amg-m .amg-pagination{
+    text-align: center;
+    margin-top: 14px;
+}
+
+.amg-m table .el-button{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/**===================列表页样式===================**/
+.amg-m .amg-l>div{ margin-bottom: 14px}
+
+.amg-m .amg-l .amg-l-pagination{
+    text-align: center;
+    margin-top: 14px;
+}
+
+
+/**===================编辑页样式===================**/
+.amg-e .amg-e-opt{
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.amg-m .amg-e .amg-e-form>div{
+    margin-bottom: 14px;
+}
+
+.amg-m .amg-e .el-form-item{
+    margin-bottom: 14px;
+}
+
+.amg-m .amg-condition  .el-input,.amg-m .amg-condition .el-date-editor {
+    width: 200px
+}
+
+.amg-m .amg-l .amg-condition .el-date-editor {
+    width: 200px
+}
+
+.amg-e .el-input,.amg-m .amg-condition .el-date-editor {
+    width: 200px
+}
+
+.amg-dialog{
+
+}
+
+
+.el-dialog__body .el-form-item--small.el-form-item{
+    margin-bottom: 0;
+}

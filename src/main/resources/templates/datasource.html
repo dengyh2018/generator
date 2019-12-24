@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main-element.css">
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-if="showList==1">
+        <div class="amg-condition">
+            <h3>课程管理</h3>
+            <div style="display:flex;">
+                <el-input v-model="titleLike" style="width:220px;margin-right:15px;" placeholder="搜索课程名称" clearable maxlength=30></el-input>
+                <el-button type="danger" icon="el-icon-search" @click="handleCurrentChange(1)">查询</el-button>
+                <el-button type="primary" icon="el-icon-plus" @click="addCourse()">新建课程</el-button>
+            </div>
+        </div>
+        <div style="margin-top:30px;">
+            <el-table :data="tableData" border v-loading="loading">
+                <el-table-column type="index" width="50" align="center"></el-table-column>
+                <el-table-column prop="title" label="课程标题"></el-table-column>
+                <el-table-column prop="categoryName" label="课程频道"></el-table-column>
+                <el-table-column prop="statusName" label="课程状态"></el-table-column>
+                <el-table-column prop="browseTimes" label="浏览次数"></el-table-column>
+                <el-table-column prop="studyTimes" label="学习次数"></el-table-column>
+                <el-table-column prop="studyPersonTimes" label="学习人数">
+                    <template scope="scope">
+                        <el-button type="text" size="medium" @click="openStudyData(scope.row.id)">{{scope.row.studyPersonTimes}}</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="studyFinishTimes" label="学习完成人数">
+                    <template scope="scope">
+                        <el-button type="text" size="medium" @click="openStudyData(scope.row.id,'finish')">{{scope.row.studyFinishTimes}}</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="creator" label="创建者"></el-table-column>
+                <el-table-column prop="createTime" label="创建时间"></el-table-column>
+                <el-table-column label="操作" width="135">
+                    <template scope="scope">
+                        <el-button type="text" size="small" v-if="scope.row.status!='publish'" @click="handleCourse(scope.row.id,'publish')">发布</el-button>
+                        <el-button type="text" size="small" v-if="scope.row.status=='publish'" @click="handleCourse(scope.row.id,'out')">下架</el-button>
+                        <el-button type="text" size="small" :disabled="scope.row.status=='publish'" @click="editCourse(scope.row.id)">编辑</el-button>
+                        <el-button type="text" size="small" :disabled="scope.row.status=='publish'" @click="handleCourse(scope.row.id,'del')">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div style="text-align: center">
+                <el-pagination
+                        @current-change="handleCurrentChange"
+                        :current-page.sync="pageNum"
+                        :page-size="pageSize"
+                        layout="total, prev, pager, next, jumper"
+                        :total="total">
+                </el-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/modules/datasource.js"></script>
+</html>

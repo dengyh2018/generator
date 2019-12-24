@@ -38,7 +38,7 @@ public class ShellRunner {
 
     public static void main(String[] args) {
         List<String> moKuais = new ArrayList<String>();
-        moKuais.add("college");
+        moKuais.add("datasource");
         //moKuais.add("sys");
         //moKuais.add("operate_sys");
         //moKuais.add("saas_marketing");

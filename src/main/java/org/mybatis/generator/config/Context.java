@@ -418,7 +418,7 @@ public class Context extends PropertyHolder {
                 // ��ȡ��ı�ע
                 String tableRemark = tableSchemaHelp.getTableRemark(tableName);
                 // ��ע��Ϊ��ʱ����table�ı�ע��ֹ��tablesRemarks
-                // map�У���������java�ļ�(bean/dao)ע��
+                // map�У���������java�ļ�(bean/mapper)ע��
                 if (tableRemark != null) {
                     tablesRemarks.put(tableName, tableRemark);
                 }

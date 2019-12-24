@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: test
+  resources:
+    static-locations: classpath:/static/,classpath:/templates/
+  # templates文件夹的路径
+  thymeleaf:
+    prefix: classpath:/templates/
+    # templates中的所有文件后缀名，如/templates/main.html
+    suffix: .html
+
+#配置Mybatis
+mybatis:
+  type-aliases-package: org.mybatis.generator.modules.entity
+  mapper-locations: classpath:mapper/*.xml
+  configLocation: classpath:mybatis.xml
+#  configuration:
+#    # 开启驼峰命名转换，如：Table(create_time) -> Entity(createTime)。不需要我们关心怎么进行字段匹配，mybatis会自动识别`大写字母与下划线`
+#    map-underscore-to-camel-case: true
+
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
+
+#打印SQL日志
+#logging:
+#  level:
+#    com.niaobulashi.mapper: DEBUG

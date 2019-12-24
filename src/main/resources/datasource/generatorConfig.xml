@@ -61,48 +61,11 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="college_class" domainObjectName="CollegeClassBase"
+        <table tableName="datasource" domainObjectName="DatasourceBase"
                enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-
-        <table tableName="college_class_category" domainObjectName="CollegeClassCategoryBase"
-               enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
-
-        <table tableName="college_class_relate" domainObjectName="CollegeClassRelateBase"
-               enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
-
-        <table tableName="college_class_source" domainObjectName="CollegeClassSourceBase"
-               enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
-
-        <table tableName="college_statistics_study" domainObjectName="CollegeStatisticsStudyBase"
-               enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
-
-        <table tableName="college_study_cache" domainObjectName="CollegeStudyCacheBase"
-               enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
-
-        <table tableName="college_study_his" domainObjectName="CollegeStudyHisBase"
-               enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
-
-        <table tableName="college_study_like_his" domainObjectName="CollegeStudyLikeHisBase"
-               enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
-
-        <table schema="${schema}" tableName="college_study" domainObjectName="CollegeStudyBase"
-               enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
-
-        <table schema="${schema}" tableName="college_statistics_daystudy"
-               domainObjectName="CollegeStatisticsDayStudyBase"
-               enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
 
     </context>
 

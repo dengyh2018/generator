@@ -26,7 +26,7 @@ import org.mybatis.generator.api.dom.java.Parameter;
 public class IbatisDAOTemplate extends AbstractDAOTemplate {
 
     private FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(
-            "com.ibatis.dao.client.DaoManager"); //$NON-NLS-1$
+            "com.ibatis.mapper.client.DaoManager"); //$NON-NLS-1$
 
     /**
      *  
@@ -73,7 +73,7 @@ public class IbatisDAOTemplate extends AbstractDAOTemplate {
     @Override
     protected void configureSuperClass() {
         setSuperClass(new FullyQualifiedJavaType(
-                "com.ibatis.dao.client.template.SqlMapDaoTemplate")); //$NON-NLS-1$
+                "com.ibatis.mapper.client.template.SqlMapDaoTemplate")); //$NON-NLS-1$
     }
 
     @Override

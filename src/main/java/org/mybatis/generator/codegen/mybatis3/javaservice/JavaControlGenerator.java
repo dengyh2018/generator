@@ -124,7 +124,7 @@ public class JavaControlGenerator extends AbstractJavaGenerator {
 	// FullyQualifiedJavaType exampleType = new FullyQualifiedJavaType(introspectedTable.getExampleType());
 	// topLevelClass.addImportedType(exampleType);
 	// FullyQualifiedJavaType fieldType = new FullyQualifiedJavaType(introspectedTable.getMyBatis3ExtendJavaMapperType());
-	// String dao = lowerCaseFirstChar(fieldType.getShortName());
+	// String mapper = lowerCaseFirstChar(fieldType.getShortName());
 	// // 生成查询方法
 	// if (isGenarateSelectMethod(methodType)) {
 	// Method method = new Method();
@@ -150,12 +150,12 @@ public class JavaControlGenerator extends AbstractJavaGenerator {
 	// }
 	//
 	//
-	// method.addBodyLine("return " + dao + ".selectByExample( example );");
+	// method.addBodyLine("return " + mapper + ".selectByExample( example );");
 	// }
 	// else {
 	// stringBuffer.append("selectBy");
 	// returnType = new FullyQualifiedJavaType(introspectedTable.getExtendRecordType());
-	// method.addBodyLine("List<"+returnType.getShortName()+"> list = " + dao + ".selectByExample( example );");
+	// method.addBodyLine("List<"+returnType.getShortName()+"> list = " + mapper + ".selectByExample( example );");
 	// method.addBodyLine("if(list != null && !list.isEmpty()){");
 	// method.addBodyLine("if(list.size()>1){");
 	// method.addBodyLine("throw new RuntimeException(\"获取记录异常，查询到多条结果\");");
