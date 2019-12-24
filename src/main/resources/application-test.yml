@@ -1,9 +1,8 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/generator?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
-    initialSize: 3
-    maxActive: 100
+    initialSize: 5
+    maxActive: 50
     minIdle: 10
