@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-dao.dtd" >
+<mapper namespace="org.mybatis.generator.modules.mapper.DatasourceMapper" >
+  <resultMap id="BaseResultMap" type="org.mybatis.generator.modules.entity.Datasource" extends="org.mybatis.generator.modules.mapper.DatasourceBaseMapper.BaseResultMap" >
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    <include refid="org.mybatis.generator.modules.mapper.DatasourceBaseMapper.Base_Column_List" />
+  </sql>
+
+  <select id="list" resultMap="BaseResultMap" parameterType="org.mybatis.generator.modules.entity.Datasource" >
+    select
+    <include refid="Base_Column_List" />
+    from datasource
+    where 1=1
+  </select>
+
+</mapper>
