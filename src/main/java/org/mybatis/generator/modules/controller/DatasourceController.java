@@ -67,4 +67,16 @@ public class DatasourceController {
         return R.ok().put("data",datasource);
     }
 
+    /**
+     * 数据源删除
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/del/{id}",method = RequestMethod.POST)
+    public R del(@PathVariable("id") Long id) {
+        datasourceService.deleteByPrimaryKey(id);
+        return R.ok();
+    }
+
 }

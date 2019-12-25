@@ -249,27 +249,15 @@ var vm = new Vue({
             }).catch(()=>{
             })
         },
-        handleCourse(id,type){
-            let text ='',
-                url='';
-            if(type=='publish'){
-                text='确定要发布该课程吗？';
-                url='/college/class/publish';
-            }else if(type=='out'){
-                text='确定要下架该课程吗？';
-                url='/college/class/publish';
-            }else{
-                text='确定要删除该课程吗？';
-                url='/college/class/del';
-            }
+        del(id){
+            let text ='确定要删除该数据源吗？',
+                url='/datasource/del/' + id;
             this.$confirm(text, '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                axios.post(url,{
-                    id
-                }).then(res=>{
+                axios.post(url).then(res=>{
                     if(res.data.code==0){
                         this.$message.success( '操作成功!');
                         this.getList();
@@ -277,7 +265,6 @@ var vm = new Vue({
                         this.$message.error( '操作失败!');
                     }
                 });
-
             }).catch(() => {
             });
         },
