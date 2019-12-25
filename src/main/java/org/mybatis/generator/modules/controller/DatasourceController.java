@@ -56,7 +56,7 @@ public class DatasourceController {
     }
 
     /**
-     * 数据源编辑
+     * 数据源详情
      *
      * @param id
      * @return

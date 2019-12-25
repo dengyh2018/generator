@@ -1,16 +1,16 @@
 package org.mybatis.generator.modules.mapper;
 
-import org.mybatis.generator.modules.entity.Datasource;
+import org.mybatis.generator.modules.entity.Config;
 
 /**
  *
- *<datasource Dao基础接口>
+ *<config Dao基础接口>
  *
  * @since 2019/12/25 13:53:16
- * @table datasource
+ * @table config
  * @mbggenerated
  */
-public interface DatasourceBaseMapper {
+public interface ConfigBaseMapper {
     /**
      * @mbggenerated
      */
@@ -19,21 +19,21 @@ public interface DatasourceBaseMapper {
     /**
      * @mbggenerated
      */
-    int insertSelective(Datasource record);
+    int insertSelective(Config record);
 
     /**
      * @mbggenerated
      */
-    Datasource selectByPrimaryKey(Long id);
+    Config selectByPrimaryKey(Long id);
 
     /**
      * @mbggenerated
      */
-    int updateByPrimaryKeySelective(Datasource record);
+    int updateByPrimaryKeySelective(Config record);
 
     /**
      * @mbggenerated
      */
     @Deprecated
-    int updateByPrimaryKey(Datasource record);
+    int updateByPrimaryKey(Config record);
 }

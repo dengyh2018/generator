@@ -12,12 +12,16 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="status" jdbcType="CHAR" property="status" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updator" jdbcType="VARCHAR" property="updator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
-    id, name, type, url, username, pwd, status
+    id, name, type, url, username, pwd, status, creator, create_time, updator, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
@@ -43,9 +47,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into datasource (name, type, url, 
-      username, pwd, status)
+      username, pwd, status, 
+      creator, create_time, updator, 
+      update_time)
     values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
+      #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.mybatis.generator.modules.entity.Datasource">
     <!--
@@ -74,6 +82,18 @@
       <if test="status != null">
         status,
       </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updator != null">
+        updator,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -93,6 +113,18 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -120,6 +152,18 @@
       <if test="status != null">
         status = #{status,jdbcType=CHAR},
       </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        updator = #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -133,7 +177,11 @@
       url = #{url,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
       pwd = #{pwd,jdbcType=VARCHAR},
-      status = #{status,jdbcType=CHAR}
+      status = #{status,jdbcType=CHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updator = #{updator,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

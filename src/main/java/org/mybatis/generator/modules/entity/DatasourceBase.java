@@ -1,17 +1,18 @@
 package org.mybatis.generator.modules.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
  *<datasource Bean基础类>
  *
- * @since 2019/12/24 18:04:45
+ * @since 2019/12/25 13:53:15
  * @table datasource
  * @mbggenerated
  */
 public class DatasourceBase implements Serializable {
-    private static final long serialVersionUID = 1577181885746L;
+    private static final long serialVersionUID = 1577253195927L;
 
     /**
      * @mbggenerated
@@ -54,6 +55,30 @@ public class DatasourceBase implements Serializable {
      *  status
      */
     private String status;
+
+    /**
+     * @mbggenerated
+     * 创建人 creator
+     */
+    private String creator;
+
+    /**
+     * @mbggenerated
+     * 创建时间 create_time
+     */
+    private Date createTime;
+
+    /**
+     * @mbggenerated
+     * 更新人 updator
+     */
+    private String updator;
+
+    /**
+     * @mbggenerated
+     * 更新时间 update_time
+     */
+    private Date updateTime;
 
     /**
      * @return 获取  datasource.id
@@ -151,5 +176,61 @@ public class DatasourceBase implements Serializable {
      */
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    /**
+     * @return 获取 创建人 datasource.creator
+     */
+    public String getCreator() {
+        return creator;
+    }
+
+    /**
+     * @param creator 设置 创建人 datasource.creator
+     */
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
+    }
+
+    /**
+     * @return 获取 创建时间 datasource.create_time
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * @param createTime 设置 创建时间 datasource.create_time
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    /**
+     * @return 获取 更新人 datasource.updator
+     */
+    public String getUpdator() {
+        return updator;
+    }
+
+    /**
+     * @param updator 设置 更新人 datasource.updator
+     */
+    public void setUpdator(String updator) {
+        this.updator = updator == null ? null : updator.trim();
+    }
+
+    /**
+     * @return 获取 更新时间 datasource.update_time
+     */
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    /**
+     * @param updateTime 设置 更新时间 datasource.update_time
+     */
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

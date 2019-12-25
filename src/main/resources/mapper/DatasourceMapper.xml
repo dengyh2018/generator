@@ -19,9 +19,10 @@
     from datasource
     <where>
       <if test="name != null and  name != ''">
-        name like CONCAT('%', #{name}, '%');
+        name like CONCAT('%', #{name}, '%')
       </if>
     </where>
+    order by update_time desc
   </select>
 
 </mapper>

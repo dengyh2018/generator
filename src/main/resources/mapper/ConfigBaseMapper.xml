@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.generator.modules.mapper.ConfigBaseMapper">
+  <resultMap id="BaseResultMap" type="org.mybatis.generator.modules.entity.Config">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="datasource_id" jdbcType="BIGINT" property="datasourceId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="tables" jdbcType="VARCHAR" property="tables" />
+    <result column="xml_project" jdbcType="VARCHAR" property="xmlProject" />
+    <result column="xml_package" jdbcType="VARCHAR" property="xmlPackage" />
+    <result column="model_project" jdbcType="VARCHAR" property="modelProject" />
+    <result column="model_package" jdbcType="VARCHAR" property="modelPackage" />
+    <result column="client_project" jdbcType="VARCHAR" property="clientProject" />
+    <result column="client_package" jdbcType="VARCHAR" property="clientPackage" />
+    <result column="service_project" jdbcType="VARCHAR" property="serviceProject" />
+    <result column="service_package" jdbcType="VARCHAR" property="servicePackage" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updator" jdbcType="VARCHAR" property="updator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    id, datasource_id, name, tables, xml_project, xml_package, model_project, model_package, 
+    client_project, client_package, service_project, service_package, creator, create_time, 
+    updator, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    delete from config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.mybatis.generator.modules.entity.Config">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into config (datasource_id, name, tables, 
+      xml_project, xml_package, model_project, 
+      model_package, client_project, client_package, 
+      service_project, service_package, creator, 
+      create_time, updator, update_time
+      )
+    values (#{datasourceId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{tables,jdbcType=VARCHAR}, 
+      #{xmlProject,jdbcType=VARCHAR}, #{xmlPackage,jdbcType=VARCHAR}, #{modelProject,jdbcType=VARCHAR}, 
+      #{modelPackage,jdbcType=VARCHAR}, #{clientProject,jdbcType=VARCHAR}, #{clientPackage,jdbcType=VARCHAR}, 
+      #{serviceProject,jdbcType=VARCHAR}, #{servicePackage,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.mybatis.generator.modules.entity.Config">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="datasourceId != null">
+        datasource_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="tables != null">
+        tables,
+      </if>
+      <if test="xmlProject != null">
+        xml_project,
+      </if>
+      <if test="xmlPackage != null">
+        xml_package,
+      </if>
+      <if test="modelProject != null">
+        model_project,
+      </if>
+      <if test="modelPackage != null">
+        model_package,
+      </if>
+      <if test="clientProject != null">
+        client_project,
+      </if>
+      <if test="clientPackage != null">
+        client_package,
+      </if>
+      <if test="serviceProject != null">
+        service_project,
+      </if>
+      <if test="servicePackage != null">
+        service_package,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updator != null">
+        updator,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="datasourceId != null">
+        #{datasourceId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tables != null">
+        #{tables,jdbcType=VARCHAR},
+      </if>
+      <if test="xmlProject != null">
+        #{xmlProject,jdbcType=VARCHAR},
+      </if>
+      <if test="xmlPackage != null">
+        #{xmlPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="modelProject != null">
+        #{modelProject,jdbcType=VARCHAR},
+      </if>
+      <if test="modelPackage != null">
+        #{modelPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="clientProject != null">
+        #{clientProject,jdbcType=VARCHAR},
+      </if>
+      <if test="clientPackage != null">
+        #{clientPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceProject != null">
+        #{serviceProject,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePackage != null">
+        #{servicePackage,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mybatis.generator.modules.entity.Config">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    update config
+    <set>
+      <if test="datasourceId != null">
+        datasource_id = #{datasourceId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tables != null">
+        tables = #{tables,jdbcType=VARCHAR},
+      </if>
+      <if test="xmlProject != null">
+        xml_project = #{xmlProject,jdbcType=VARCHAR},
+      </if>
+      <if test="xmlPackage != null">
+        xml_package = #{xmlPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="modelProject != null">
+        model_project = #{modelProject,jdbcType=VARCHAR},
+      </if>
+      <if test="modelPackage != null">
+        model_package = #{modelPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="clientProject != null">
+        client_project = #{clientProject,jdbcType=VARCHAR},
+      </if>
+      <if test="clientPackage != null">
+        client_package = #{clientPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceProject != null">
+        service_project = #{serviceProject,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePackage != null">
+        service_package = #{servicePackage,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        updator = #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mybatis.generator.modules.entity.Config">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    update config
+    set datasource_id = #{datasourceId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      tables = #{tables,jdbcType=VARCHAR},
+      xml_project = #{xmlProject,jdbcType=VARCHAR},
+      xml_package = #{xmlPackage,jdbcType=VARCHAR},
+      model_project = #{modelProject,jdbcType=VARCHAR},
+      model_package = #{modelPackage,jdbcType=VARCHAR},
+      client_project = #{clientProject,jdbcType=VARCHAR},
+      client_package = #{clientPackage,jdbcType=VARCHAR},
+      service_project = #{serviceProject,jdbcType=VARCHAR},
+      service_package = #{servicePackage,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updator = #{updator,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
