@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/main-element.css">
+
+    <script src="js/axios.min.js"></script>
     <!-- import Vue before Element -->
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <!-- import JavaScript -->
@@ -16,43 +18,29 @@
 <div id="rrapp" v-cloak>
     <div v-if="showList==1">
         <div class="amg-condition">
-            <h3>课程管理</h3>
+            <h3>数据源管理</h3>
             <div style="display:flex;">
-                <el-input v-model="titleLike" style="width:220px;margin-right:15px;" placeholder="搜索课程名称" clearable maxlength=30></el-input>
+                <el-input v-model="nameLike" style="width:220px;margin-right:15px;" placeholder="名称" clearable maxlength=30></el-input>
                 <el-button type="danger" icon="el-icon-search" @click="handleCurrentChange(1)">查询</el-button>
-                <el-button type="primary" icon="el-icon-plus" @click="addCourse()">新建课程</el-button>
+                <el-button type="primary" icon="el-icon-plus" @click="add()">新建数据源</el-button>
             </div>
         </div>
         <div style="margin-top:30px;">
             <el-table :data="tableData" border v-loading="loading">
-                <el-table-column type="index" width="50" align="center"></el-table-column>
-                <el-table-column prop="title" label="课程标题"></el-table-column>
-                <el-table-column prop="categoryName" label="课程频道"></el-table-column>
-                <el-table-column prop="statusName" label="课程状态"></el-table-column>
-                <el-table-column prop="browseTimes" label="浏览次数"></el-table-column>
-                <el-table-column prop="studyTimes" label="学习次数"></el-table-column>
-                <el-table-column prop="studyPersonTimes" label="学习人数">
+                <el-table-column type="index" label="序号" align="center"></el-table-column>
+                <el-table-column prop="name" label="名称" align="center"></el-table-column>
+                <el-table-column prop="type" label="类型" align="center"></el-table-column>
+                <el-table-column prop="url" label="url" align="center"></el-table-column>
+                <el-table-column prop="username" label="用户名" align="center"></el-table-column>
+                <el-table-column prop="pwd" label="密码" align="center"></el-table-column>
+                <el-table-column label="操作" align="center">
                     <template scope="scope">
-                        <el-button type="text" size="medium" @click="openStudyData(scope.row.id)">{{scope.row.studyPersonTimes}}</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="studyFinishTimes" label="学习完成人数">
-                    <template scope="scope">
-                        <el-button type="text" size="medium" @click="openStudyData(scope.row.id,'finish')">{{scope.row.studyFinishTimes}}</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="creator" label="创建者"></el-table-column>
-                <el-table-column prop="createTime" label="创建时间"></el-table-column>
-                <el-table-column label="操作" width="135">
-                    <template scope="scope">
-                        <el-button type="text" size="small" v-if="scope.row.status!='publish'" @click="handleCourse(scope.row.id,'publish')">发布</el-button>
-                        <el-button type="text" size="small" v-if="scope.row.status=='publish'" @click="handleCourse(scope.row.id,'out')">下架</el-button>
-                        <el-button type="text" size="small" :disabled="scope.row.status=='publish'" @click="editCourse(scope.row.id)">编辑</el-button>
-                        <el-button type="text" size="small" :disabled="scope.row.status=='publish'" @click="handleCourse(scope.row.id,'del')">删除</el-button>
+                        <el-button type="text" size="small" @click="editDs(scope.row.id)">编辑</el-button>
+                        <el-button type="text" size="small" @click="del(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
-            <div style="text-align: center">
+            <!--<div style="text-align: center">
                 <el-pagination
                         @current-change="handleCurrentChange"
                         :current-page.sync="pageNum"
@@ -60,8 +48,39 @@
                         layout="total, prev, pager, next, jumper"
                         :total="total">
                 </el-pagination>
-            </div>
+            </div>-->
         </div>
+    </div>
+
+    <div class="edit" v-else style="max-width:1000px">
+        <h4>编辑数据源</h4>
+        <el-form ref="datasource" :model="datasource" :rules="rules" label-position="left"
+                 label-width="100px" label-suffix="：" style="margin:50px 0 0 30px;">
+            <el-form-item label="名称" prop="name">
+                <el-input v-model="datasource.name" maxlength="100" clearable placeholder="请输入数据源名称"></el-input>
+            </el-form-item>
+            <el-form-item label="类型">
+                <el-select v-model="datasource.type" filterable placeholder="请选择类型" style="width: 100%">
+                    <el-option v-for="item in typeSelect" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="url" prop="url">
+                <el-input v-model="datasource.url" maxlength="100" clearable placeholder="请输入url"></el-input>
+            </el-form-item>
+            <el-form-item label="用户名" prop="username">
+                <el-input v-model="datasource.username" maxlength="100" clearable placeholder="请输入用户名"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="pwd">
+                <el-input v-model="datasource.pwd" maxlength="100" clearable placeholder="请输入密码"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <div style="text-align:right;">
+                    <el-button type="primary" plain @click="edit()">保 存</el-button>
+                    <el-button type="info" plain @click="goBack()">返 回</el-button>
+                </div>
+            </el-form-item>
+        </el-form>
+
     </div>
 </div>
 </body>

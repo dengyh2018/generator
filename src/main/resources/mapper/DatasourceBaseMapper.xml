@@ -1,24 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.mybatis.generator.modules.mapper.DatasourceBaseMapper" >
-  <resultMap id="BaseResultMap" type="org.mybatis.generator.modules.entity.Datasource" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.generator.modules.mapper.DatasourceBaseMapper">
+  <resultMap id="BaseResultMap" type="org.mybatis.generator.modules.entity.Datasource">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="CHAR" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="status" jdbcType="CHAR" property="status" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
-    id, type, url, username, pwd, status
+    id, name, type, url, username, pwd, status
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
@@ -27,98 +28,108 @@
     from datasource
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
     delete from datasource
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="org.mybatis.generator.modules.entity.Datasource" >
+  <insert id="insert" parameterType="org.mybatis.generator.modules.entity.Datasource">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into datasource (type, url, username, 
-      pwd, status)
-    values (#{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{pwd,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
+    insert into datasource (name, type, url, 
+      username, pwd, status)
+    values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.mybatis.generator.modules.entity.Datasource" >
+  <insert id="insertSelective" parameterType="org.mybatis.generator.modules.entity.Datasource">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into datasource
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="type != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="type != null">
         type,
       </if>
-      <if test="url != null" >
+      <if test="url != null">
         url,
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         username,
       </if>
-      <if test="pwd != null" >
+      <if test="pwd != null">
         pwd,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="type != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="url != null" >
+      <if test="url != null">
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="pwd != null" >
+      <if test="pwd != null">
         #{pwd,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.mybatis.generator.modules.entity.Datasource" >
+  <update id="updateByPrimaryKeySelective" parameterType="org.mybatis.generator.modules.entity.Datasource">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
     update datasource
-    <set >
-      <if test="type != null" >
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="url != null" >
+      <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="pwd != null" >
+      <if test="pwd != null">
         pwd = #{pwd,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status = #{status,jdbcType=CHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.mybatis.generator.modules.entity.Datasource" >
+  <update id="updateByPrimaryKey" parameterType="org.mybatis.generator.modules.entity.Datasource">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
     update datasource
-    set type = #{type,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
       pwd = #{pwd,jdbcType=VARCHAR},

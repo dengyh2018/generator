@@ -1,5 +1,6 @@
 package org.mybatis.generator.modules.controller;
 
+import com.github.pagehelper.PageInfo;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.modules.R;
 import org.mybatis.generator.modules.entity.Datasource;
@@ -32,10 +33,38 @@ public class DatasourceController {
      * @param datasource
      * @return
      */
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public R queryCategoryByParentId(@RequestBody Datasource datasource) {
+    @RequestMapping(value = "/list",method = RequestMethod.POST)
+    public R list(@RequestBody Datasource datasource) {
         List<Datasource> collegeClassCategoryList = datasourceService.list(datasource);
-        return R.ok().put("data", collegeClassCategoryList);
+        return R.ok().put("list", collegeClassCategoryList);
+    }
+
+    /**
+     * 数据源编辑
+     *
+     * @param datasource
+     * @return
+     */
+    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    public R edit(@RequestBody Datasource datasource) {
+        if(datasource.getId()!=null){
+            datasourceService.updateByPrimaryKeySelective(datasource);
+        }else{
+            datasourceService.insertSelective(datasource);
+        }
+        return R.ok();
+    }
+
+    /**
+     * 数据源编辑
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/info/{id}",method = RequestMethod.GET)
+    public R info(@PathVariable("id") Long id) {
+        Datasource datasource=datasourceService.selectByPrimaryKey(id);
+        return R.ok().put("data",datasource);
     }
 
 }

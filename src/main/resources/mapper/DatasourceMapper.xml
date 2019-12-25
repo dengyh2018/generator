@@ -1,23 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.mybatis.generator.modules.mapper.DatasourceMapper" >
-  <resultMap id="BaseResultMap" type="org.mybatis.generator.modules.entity.Datasource" extends="org.mybatis.generator.modules.mapper.DatasourceBaseMapper.BaseResultMap" >
+<mapper namespace="org.mybatis.generator.modules.mapper.DatasourceMapper">
+  <resultMap extends="org.mybatis.generator.modules.mapper.DatasourceBaseMapper.BaseResultMap" id="BaseResultMap" type="org.mybatis.generator.modules.entity.Datasource">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
     <include refid="org.mybatis.generator.modules.mapper.DatasourceBaseMapper.Base_Column_List" />
   </sql>
 
-  <select id="list" resultMap="BaseResultMap" parameterType="org.mybatis.generator.modules.entity.Datasource" >
+  <select id="list" parameterType="org.mybatis.generator.modules.entity.Datasource" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from datasource
-    where 1=1
+    <where>
+      <if test="name != null and  name != ''">
+        name like CONCAT('%', #{name}, '%');
+      </if>
+    </where>
   </select>
 
 </mapper>

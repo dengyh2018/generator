@@ -1,46 +1,18 @@
 Vue.prototype.$ELEMENT = { size: 'small'};
-let checkContent = (rule, value, callback) => {
-    if (vm.courseList.length==0) {
-        return callback(new Error('请添加课时'));
-    }else{
-        for(let i=0;i<vm.courseList.length;i++){
-            if(!vm.courseList[i].sourceId){
-                return callback(new Error('不能存在素材为空的课时，请添加素材'));
-            }
-        }
-    }
-    callback();
-};
 
 var vm = new Vue({
     el:'#rrapp',
     data:{
-        showList:1,
-        titleLike:'',
-        tableData:[],
-        pageNum:1,
-        pageSize:10,
-        total:0,
-        loading:false,
-        course:{
-            id:'',
-            title:'新建课程',
-            name:'',
-            brief:'',
-            channel:[],
-            img:'',
-        },
-        upheaders:{
-            'token':localStorage.getItem("token")
-        },
-        channelOptions:[],
-        channelProps:{
-            value:'id',
-            label:'name',
-            children:'collegeClassCategoryList'
-        },
+        tableData: [],
+        name:'',
+        type:'',
+        url:'',
+        username:'',
+        pwd:'',
+        nameLike:'',
+        showList:'1',
         rules:{
-            name:[
+            /*name:[
                 { required:true,message:'请输入标题',trigger: ["change"] },
                 { min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur' }
             ],
@@ -52,36 +24,24 @@ var vm = new Vue({
                 { required:true ,message:'请上传图片'},
             ],
             content:[
-                { required:true ,validator:checkContent,trigger: ["change","blur"]},
-            ]
+                { required:true,trigger: ["change","blur"]},
+            ]*/
         },
-        courseList:[],
-        fullscreenLoading:false,
-        selDialog:false,
-        addMaterialIndex:0,
-        searchMaterial:'',
-        materialData:[],
-        materialNum:1,
-        materialTotal:0,
-        //编辑素材
-        editDialog:false,
-        editMeter:{
-            type:'',
-            name:'',
-            sourceId:'',
+        typeSelect: [{
+            value: 'mysql',
+            label: 'mysql'
+        }, {
+            value: 'oracle',
+            label: 'oracle'
+        }],
+        datasource: {
+            id:'',
+            name: '',
+            type: 'mysql',
+            url: '',
+            username: '',
+            pwd: '',
         },
-        editShow:true,
-        //学习情况
-        studyDialog:false,
-        studyStatus:'',
-        studyOptions: [{value: '', label: '全部'},
-            {value: 'finish', label: '已完成'},
-            {value: 'ing', label: '学习中'},
-            {value: 'no', label: '未学习'}],
-        studyData:[],
-        studyNum:1,
-        studyTotal:0,
-        classId:'',
     },
     methods: {
         handleCurrentChange(val){
@@ -90,15 +50,14 @@ var vm = new Vue({
         },
         getList(){
             this.loading=true;
-            axios.post('/college/class/queryByAll',{
-                pageNum:this.pageNum,
-                pageSize:this.pageSize,
-                title:this.titleLike,
+            axios.post('/datasource/list',{
+                //pageNum:this.pageNum,
+                //pageSize:this.pageSize,
+                name:this.nameLike,
             }).then(res=>{
                 this.loading=false;
                 if(res.data.code==0){
-                    this.tableData = res.data.pageInfo.list;
-                    this.total=res.data.pageInfo.total;
+                    this.tableData = res.data.list;
                 }else{
                     this.$message.error(res.data.msg);
                 }
@@ -106,35 +65,28 @@ var vm = new Vue({
                 this.loading=false;
             })
         },
-        addCourse(){
+        add(){
             this.showList=2;
         },
-        editCourse(id){
+        editDs(id){
             this.fullscreenLoading=true;
             this.showList=2;
-            this.course.title='编辑课程';
-            axios.post('/college/class/info',{
-                id
-            }).then(res=>{
-                this.fullscreenLoading=false;
-                if(res.data.code==0){
-                    let data = res.data.data;
-                    this.course={
-                        id:data.id,
-                        title:'编辑课程',
-                        name:data.title,
-                        brief:data.briefIntro,
-                        channel:data.categoryIds,
-                        img:data.coverUrl,
-                    };
-                    this.courseList=data.collegeClassSourceList;
-                }else{
-                    this.$message.error(res.data.msg);
+            axios.get('/datasource/info/' + id).then(function (req) {
+                vm.fullscreenLoading = false;
+                var data = req.data;
+                if (data.code != 0) {
+                    alert(data.msg);
+                    return;
                 }
-            }).catch(()=>{
-                this.fullscreenLoading=false;
-                this.$message.error('未获取到课程详情，请稍后再试');
-            })
+                vm.datasource=data.data;
+                /*var datasource=data.data;
+                this.datasource.id=datasource.id;
+                this.datasource.name=datasource.name;
+                this.datasource.type=datasource.type;
+                this.datasource.url=datasource.url;
+                this.datasource.username=datasource.username;
+                this.datasource.pwd=datasource.pwd;*/
+            });
         },
         beforeAvatarUpload(file) {
             const isJPG = file.type;
@@ -190,16 +142,9 @@ var vm = new Vue({
             }).catch(()=>{
             })
         },
-
         materialCurrentChange(val){
             this.materialNum=val;
             this.getMaterial();
-        },
-        add(index){
-            //this.courseList[this.addMaterialIndex].sourceId=id;
-            //this.courseList[this.addMaterialIndex].name=name;
-            this.courseList[this.addMaterialIndex]=this.materialData[index];
-            this.searchMaterialClose();
         },
         replace(index){
             this.editShow=true;
@@ -224,7 +169,29 @@ var vm = new Vue({
             this.editDialog=false;
             this.close();
         },
-
+        edit(){
+            axios.post('/datasource/edit',{
+                id:vm.datasource.id,
+                name:this.datasource.name,
+                type:this.datasource.type,
+                url:this.datasource.url,
+                username:this.datasource.username,
+                pwd:this.datasource.pwd
+            }).then(res=>{
+                this.fullscreenLoading=false;
+                if(res.data.code==0){
+                    this.$message.success('提交成功');
+                    this.goBack();
+                    this.getList();
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch( err =>{
+                console.log(err)
+                this.fullscreenLoading=false;
+                this.$message.error('提交失败');
+            })
+        },
         //添加或修改课程
         commit(publish){
             this.$refs["course"].validate((valid) => {
@@ -263,15 +230,14 @@ var vm = new Vue({
         },
         goBack(){
             this.showList=1;
-            this.course={
+            this.datasource={
                 id:'',
-                title:'新建课程',
                 name:'',
-                brief:'',
-                channel:[],
-                img:'',
+                type:'mysql',
+                url:'',
+                username:'',
+                pwd:'',
             };
-            this.courseList=[];
         },
 
         getDirectoryList(){
@@ -359,6 +325,6 @@ var vm = new Vue({
     },
     created(){
         this.getList();
-        this.getDirectoryList();
+        //this.getDirectoryList();
     }
 });

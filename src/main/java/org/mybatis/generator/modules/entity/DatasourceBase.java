@@ -6,18 +6,24 @@ import java.io.Serializable;
  *
  *<datasource Bean基础类>
  *
- * @since 2019/11/15 10:33:12
+ * @since 2019/12/24 18:04:45
  * @table datasource
  * @mbggenerated
  */
 public class DatasourceBase implements Serializable {
-    private static final long serialVersionUID = 1573785192748L;
+    private static final long serialVersionUID = 1577181885746L;
 
     /**
      * @mbggenerated
      *  id
      */
     private Long id;
+
+    /**
+     * @mbggenerated
+     *  name
+     */
+    private String name;
 
     /**
      * @mbggenerated
@@ -61,6 +67,20 @@ public class DatasourceBase implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return 获取  datasource.name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name 设置  datasource.name
+     */
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     /**
