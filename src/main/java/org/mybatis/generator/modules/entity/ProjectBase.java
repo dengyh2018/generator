@@ -7,12 +7,12 @@ import java.util.Date;
  *
  *<project Bean基础类>
  *
- * @since 2019/12/26 20:27:01
+ * @since 2019/12/26 20:29:37
  * @table project
  * @mbggenerated
  */
 public class ProjectBase implements Serializable {
-    private static final long serialVersionUID = 1577363221343L;
+    private static final long serialVersionUID = 1577363377214L;
 
     /**
      * @mbggenerated
