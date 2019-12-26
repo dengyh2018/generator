@@ -89,7 +89,7 @@ public class ShellRunner {
         if (args.length == 0) {
             usage();
             System.exit(0);
-            return; // only to satisfy compiler, never returns
+            throw new RuntimeException("生成mybatis文件失败"); // only to satisfy compiler, never returns
         }
 
         Map<String, String> arguments = parseCommandLine(args);
@@ -97,12 +97,12 @@ public class ShellRunner {
         if (arguments.containsKey(HELP_1)) {
             usage();
             System.exit(0);
-            return; // only to satisfy compiler, never returns
+            throw new RuntimeException("生成mybatis文件失败"); // only to satisfy compiler, never returns
         }
 
         if (!arguments.containsKey(CONFIG_FILE)) {
             writeLine(getString("RuntimeError.0")); //$NON-NLS-1$
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         }
 
 //        String configfile = arguments.get(CONFIG_FILE);
@@ -113,7 +113,7 @@ public class ShellRunner {
 //        // 配置文件不存在，程序退出
 //        if (!configurationFile.exists()) {
 //            writeLine(getString("RuntimeError.1", configfile)); //$NON-NLS-1$
-//            return;
+//           throw new RuntimeException("生成mybatis文件失败");
 //        }
 
         Set<String> fullyqualifiedTables = new HashSet<String>();
@@ -196,19 +196,19 @@ public class ShellRunner {
             for (String error : e.getErrors()) {
                 writeLine(error);
             }
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         } catch (SQLException e) {
             e.printStackTrace();
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         } catch (IOException e) {
             e.printStackTrace();
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         } catch (InvalidConfigurationException e) {
             writeLine(getString("Progress.16")); //$NON-NLS-1$
             for (String error : e.getErrors()) {
                 writeLine(error);
             }
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         } catch (InterruptedException e) {
             // ignore (will never happen with the DefaultShellCallback);
         }
@@ -244,7 +244,7 @@ public class ShellRunner {
         if (args.length == 0) {
             usage();
             System.exit(0);
-            return; // only to satisfy compiler, never returns
+            throw new RuntimeException("生成mybatis文件失败"); // only to satisfy compiler, never returns
         }
 
         Map<String, String> arguments = parseCommandLine(args);
@@ -252,12 +252,12 @@ public class ShellRunner {
         if (arguments.containsKey(HELP_1)) {
             usage();
             System.exit(0);
-            return; // only to satisfy compiler, never returns
+            throw new RuntimeException("生成mybatis文件失败"); // only to satisfy compiler, never returns
         }
 
         if (!arguments.containsKey(CONFIG_FILE)) {
             writeLine(getString("RuntimeError.0")); //$NON-NLS-1$
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         }
 
         String configfile = arguments.get(CONFIG_FILE);
@@ -268,7 +268,7 @@ public class ShellRunner {
         // 配置文件不存在，程序退出
         if (!configurationFile.exists()) {
             writeLine(getString("RuntimeError.1", configfile)); //$NON-NLS-1$
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         }
 
         Set<String> fullyqualifiedTables = new HashSet<String>();
@@ -315,19 +315,19 @@ public class ShellRunner {
             for (String error : e.getErrors()) {
                 writeLine(error);
             }
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         } catch (SQLException e) {
             e.printStackTrace();
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         } catch (IOException e) {
             e.printStackTrace();
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         } catch (InvalidConfigurationException e) {
             writeLine(getString("Progress.16")); //$NON-NLS-1$
             for (String error : e.getErrors()) {
                 writeLine(error);
             }
-            return;
+            throw new RuntimeException("生成mybatis文件失败");
         } catch (InterruptedException e) {
             // ignore (will never happen with the DefaultShellCallback);
         }
