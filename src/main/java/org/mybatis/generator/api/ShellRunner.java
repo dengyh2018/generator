@@ -21,6 +21,7 @@ import org.mybatis.generator.exception.InvalidConfigurationException;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.mybatis.generator.logging.LogFactory;
+import org.mybatis.generator.modules.entity.Config;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,18 +40,15 @@ public class ShellRunner {
     public static void main(String[] args) {
         List<String> moKuais = new ArrayList<String>();
         moKuais.add("datasource");
-        //moKuais.add("sys");
-        //moKuais.add("operate_sys");
-        //moKuais.add("saas_marketing");
-        //moKuais.add("saas_business");
-        //moKuais.add("saas_bsoperate");
-        //moKuais.add("saas_report");
-        //moKuais.add("saas_finance");
         for (String moKuai : moKuais) {
             shellRunerConfig = new ShellRunerConfig(moKuai);
             autoProductDetails(shellRunerConfig);
         }
 
+    }
+
+    public static void autoProduct(Config datasourceConfig) {
+        autoProductDetails(datasourceConfig);
     }
 
     //private static final String filePath = "D:/shi-lian-hang/mall"; //文件绝对位置
@@ -72,6 +70,118 @@ public class ShellRunner {
     private static final String HELP_2 = "-h"; //$NON-NLS-1$
 
     public static ShellRunerConfig shellRunerConfig = null;
+
+    public static void autoProductDetails(Config datasourceConfig) {
+        //String[] tables = config.getTables().split(",");
+        // 取出generatorConfig配置文件路径，现在需要手动生成dengyh
+        String[] args = new String[]{CONFIG_FILE, OVERWRITE, VERBOSE};
+
+        System.out.println(">>>>>>>>>>执行自动代码生成<<<<<<<<<<<");
+
+        // 没有配置文件，程序退出
+        if (args.length == 0) {
+            usage();
+            System.exit(0);
+            return; // only to satisfy compiler, never returns
+        }
+
+        Map<String, String> arguments = parseCommandLine(args);
+
+        if (arguments.containsKey(HELP_1)) {
+            usage();
+            System.exit(0);
+            return; // only to satisfy compiler, never returns
+        }
+
+        if (!arguments.containsKey(CONFIG_FILE)) {
+            writeLine(getString("RuntimeError.0")); //$NON-NLS-1$
+            return;
+        }
+
+        String configfile = arguments.get(CONFIG_FILE);
+        System.out.println("generatorConfig xml==>" + configfile);
+
+        // 实例化dao生成配置文件
+        File configurationFile = new File(configfile);
+        // 配置文件不存在，程序退出
+        if (!configurationFile.exists()) {
+            writeLine(getString("RuntimeError.1", configfile)); //$NON-NLS-1$
+            return;
+        }
+
+        Set<String> fullyqualifiedTables = new HashSet<String>();
+        if (arguments.containsKey(TABLES)) {
+            StringTokenizer st = new StringTokenizer(arguments.get(TABLES), ","); //$NON-NLS-1$
+            while (st.hasMoreTokens()) {
+                String s = st.nextToken().trim();
+                if (s.length() > 0) {
+                    fullyqualifiedTables.add(s);
+                }
+            }
+        }
+
+        Set<String> contextIds = new HashSet<String>();
+        if (arguments.containsKey(CONTEXT_IDS)) {
+            StringTokenizer st = new StringTokenizer(arguments.get(CONTEXT_IDS), ","); //$NON-NLS-1$
+            while (st.hasMoreTokens()) {
+                String s = st.nextToken().trim();
+                if (s.length() > 0) {
+                    contextIds.add(s);
+                }
+            }
+        }
+
+        List<String> warnings = new ArrayList<String>();
+
+        try {
+            //你干毛用的!!
+            ConfigurationParser cp = new ConfigurationParser(warnings);
+            //将generatorConfig.xml解析成List<Context> contexts
+            Configuration config = cp.parseConfiguration(configurationFile);
+            //你干毛用的!!
+            DefaultShellCallback shellCallback = new DefaultShellCallback(arguments.containsKey(OVERWRITE));
+            // mybatis生成规则校验
+            MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, shellCallback, warnings);
+            //数据库自省，基于自省，然后合并/保存生成的文件。
+            ProgressCallback progressCallback = arguments.containsKey(VERBOSE) ? new VerboseProgressCallback() : null;
+            //开始生成mybatis7788
+            myBatisGenerator.generate(progressCallback, contextIds, fullyqualifiedTables);
+
+        } catch (XMLParserException e) {
+            writeLine(getString("Progress.3")); //$NON-NLS-1$
+            writeLine();
+            for (String error : e.getErrors()) {
+                writeLine(error);
+            }
+            return;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        } catch (InvalidConfigurationException e) {
+            writeLine(getString("Progress.16")); //$NON-NLS-1$
+            for (String error : e.getErrors()) {
+                writeLine(error);
+            }
+            return;
+        } catch (InterruptedException e) {
+            // ignore (will never happen with the DefaultShellCallback);
+        }
+
+        for (String warning : warnings) {
+            writeLine(warning);
+        }
+
+        if (warnings.size() == 0) {
+            writeLine(getString("Progress.4")); //$NON-NLS-1$
+        } else {
+            writeLine();
+            writeLine(getString("Progress.5")); //$NON-NLS-1$
+        }
+
+    }
 
     public static void autoProductDetails(ShellRunerConfig shellRunerConfig) {
         // 取出generatorConfig配置文件路径，现在需要手动生成dengyh
@@ -248,7 +358,6 @@ public class ShellRunner {
             for (String error : errors) {
                 writeLine(error);
             }
-
             System.exit(-1);
         }
 

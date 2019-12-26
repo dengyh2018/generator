@@ -1,5 +1,6 @@
 package org.mybatis.generator.modules.controller;
 
+import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.modules.R;
 import org.mybatis.generator.modules.entity.Config;
 import org.mybatis.generator.modules.service.ConfigService;
@@ -86,6 +87,7 @@ public class ConfigController {
     public R product(@PathVariable("id") Long id) {
         try {
             Config config = configService.selectByPrimaryKey(id);
+            ShellRunner.autoProduct(config);
             return R.ok();
         } catch (Exception e) {
             return R.error();
