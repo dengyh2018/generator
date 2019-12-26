@@ -91,45 +91,46 @@
         <h4>设置路径</h4>
         <el-form ref="datasource" :model="datasource" :rules="rules" label-position="left"
                  label-width="100px" label-suffix="：" style="margin:50px 0 0 30px;">
-            <el-form-item label="模块名称" prop="name">
+            <el-form-item label="模块名称" label-width="130px" prop="name">
                 <el-input v-model="config.name" maxlength="100" clearable placeholder="模块名称"></el-input>
             </el-form-item>
-            <el-form-item label="数据表">
+            <el-form-item label="数据表" label-width="130px">
                 <el-select v-model="config.tables" multiple="true" size="medium" filterable placeholder="请选择数据表"
                            style="width: 100%">
                     <el-option v-for="item in tableList" :key="item.tableName" :label="item.tableName"
                                :value="item.tableName"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="实体名称" prop="models">
-                <el-input v-model="config.models" maxlength="100" clearable placeholder="实体名称"></el-input>
+            <el-form-item label="实体名称" label-width="130px" prop="models">
+                <el-input v-model="config.models" maxlength="100" clearable
+                          placeholder="实体名称,该大写的大写，不做转换,例如：ErpAppOrder"></el-input>
             </el-form-item>
-            <el-form-item label="xml所在项目" prop="xmlProject">
+            <el-form-item label="xml所在项目" label-width="130px" prop="xmlProject">
                 <el-input v-model="config.xmlProject" maxlength="100" clearable
                           placeholder="xml所在项目/精确到包路径(不包含包路径)"></el-input>
             </el-form-item>
-            <el-form-item label="xml包路径" prop="xmlPackage">
+            <el-form-item label="xml包路径" label-width="130px" prop="xmlPackage">
                 <el-input v-model="config.xmlPackage" maxlength="100" clearable placeholder="xml包路径"></el-input>
             </el-form-item>
-            <el-form-item label="entity所在项目" prop="modelProject">
+            <el-form-item label="entity所在项目" label-width="130px" prop="modelProject">
                 <el-input v-model="config.modelProject" maxlength="100" clearable
                           placeholder="entity所在项目/精确到包路径(不包含包路径)"></el-input>
             </el-form-item>
-            <el-form-item label="entity包路径" prop="modelPackage">
+            <el-form-item label="entity包路径" label-width="130px" prop="modelPackage">
                 <el-input v-model="config.modelPackage" maxlength="100" clearable placeholder="entity包路径"></el-input>
             </el-form-item>
-            <el-form-item label="dao所在项目" prop="clientProject">
+            <el-form-item label="dao所在项目" label-width="130px" prop="clientProject">
                 <el-input v-model="config.clientProject" maxlength="100" clearable
                           placeholder="dao所在项目/精确到包路径(不包含包路径)"></el-input>
             </el-form-item>
-            <el-form-item label="dao包路径" prop="clientPackage">
+            <el-form-item label="dao包路径" label-width="130px" prop="clientPackage">
                 <el-input v-model="config.clientPackage" maxlength="100" clearable placeholder="dao包路径"></el-input>
             </el-form-item>
-            <el-form-item label="service所在项目" prop="serviceProject">
+            <el-form-item label="service所在项目" label-width="130px" prop="serviceProject">
                 <el-input v-model="config.serviceProject" maxlength="100" clearable
                           placeholder="service所在项目/精确到包路径(不包含包路径)"></el-input>
             </el-form-item>
-            <el-form-item label="service包路径" prop="servicePackage">
+            <el-form-item label="service包路径" label-width="130px" prop="servicePackage">
                 <el-input v-model="config.servicePackage" maxlength="100" clearable placeholder="service包路径"></el-input>
             </el-form-item>
             <el-form-item>
