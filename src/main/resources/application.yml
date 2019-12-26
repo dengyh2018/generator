@@ -2,11 +2,11 @@ spring:
   profiles:
     active: test
   resources:
-    static-locations: classpath:/static/,classpath:/templates/
+    static-locations: classpath:/static/,classpath:/pages/
   # templates文件夹的路径
   thymeleaf:
-    prefix: classpath:/templates/
-    # templates中的所有文件后缀名，如/templates/main.html
+    prefix: classpath:/pages/
+    # templates中的所有文件后缀名，如/pages/main.html
     suffix: .html
 
 #配置Mybatis
