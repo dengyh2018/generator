@@ -1,0 +1,4 @@
+<table tableName="${table}" domainObjectName="${table2}Base" enableCountByExample="false"
+       enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
+    <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+</table>

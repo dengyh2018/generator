@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <!--配置生成javaServiceGenerator类路径 -->
+    <javaServiceGenerator interfacePackage="${servicePackage}"
+                          classPackage="${servicePackage}.impl"
+                          targetProject="${serviceProject}">
+    </javaServiceGenerator>
+</root>

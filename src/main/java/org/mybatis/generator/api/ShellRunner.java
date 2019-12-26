@@ -21,14 +21,18 @@ import org.mybatis.generator.exception.InvalidConfigurationException;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.mybatis.generator.logging.LogFactory;
+import org.mybatis.generator.modules.constant.CommonConstant;
 import org.mybatis.generator.modules.entity.Config;
+import org.mybatis.generator.modules.entity.Datasource;
+import org.mybatis.generator.modules.utils.MapStorage;
+import org.mybatis.generator.modules.utils.ReadFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
 
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
+import static org.mybatis.generator.modules.utils.StringFormat.formatParam;
 
 /**
  * This class allows the code generator to be run from the command line.
@@ -47,8 +51,8 @@ public class ShellRunner {
 
     }
 
-    public static void autoProduct(Config datasourceConfig) {
-        autoProductDetails(datasourceConfig);
+    public static void autoProduct(Config datasourceConfig, Datasource datasource) {
+        autoProductDetails(datasourceConfig, datasource);
     }
 
     //private static final String filePath = "D:/shi-lian-hang/mall"; //文件绝对位置
@@ -71,8 +75,11 @@ public class ShellRunner {
 
     public static ShellRunerConfig shellRunerConfig = null;
 
-    public static void autoProductDetails(Config datasourceConfig) {
-        //String[] tables = config.getTables().split(",");
+    public static void autoProductDetails(Config datasourceConfig, Datasource datasource) {
+        //存储后续使用
+        MapStorage.datasourceMap.put("servicePackage", datasourceConfig.getServicePackage());
+        MapStorage.datasourceMap.put("serviceProject", datasourceConfig.getServiceProject());
+
         // 取出generatorConfig配置文件路径，现在需要手动生成dengyh
         String[] args = new String[]{CONFIG_FILE, OVERWRITE, VERBOSE};
 
@@ -98,16 +105,16 @@ public class ShellRunner {
             return;
         }
 
-        String configfile = arguments.get(CONFIG_FILE);
-        System.out.println("generatorConfig xml==>" + configfile);
+//        String configfile = arguments.get(CONFIG_FILE);
+//        System.out.println("generatorConfig xml==>" + configfile);
 
-        // 实例化dao生成配置文件
-        File configurationFile = new File(configfile);
-        // 配置文件不存在，程序退出
-        if (!configurationFile.exists()) {
-            writeLine(getString("RuntimeError.1", configfile)); //$NON-NLS-1$
-            return;
-        }
+//        // 实例化dao生成配置文件
+//        File configurationFile = new File(configfile);
+//        // 配置文件不存在，程序退出
+//        if (!configurationFile.exists()) {
+//            writeLine(getString("RuntimeError.1", configfile)); //$NON-NLS-1$
+//            return;
+//        }
 
         Set<String> fullyqualifiedTables = new HashSet<String>();
         if (arguments.containsKey(TABLES)) {
@@ -136,8 +143,42 @@ public class ShellRunner {
         try {
             //你干毛用的!!
             ConfigurationParser cp = new ConfigurationParser(warnings);
+
             //将generatorConfig.xml解析成List<Context> contexts
-            Configuration config = cp.parseConfiguration(configurationFile);
+            //Configuration config = cp.parseConfiguration(configurationFile);
+            InputStream is = null;
+            try {
+                StringBuilder sb = new StringBuilder("");
+                //开始组装配置文件
+                String generatorStr = ReadFile.readFileContent(ShellRunerConfig.getDyhGeneratorConfig());
+                String tableStr = ReadFile.readFileContent(ShellRunerConfig.getDyhTableConfig());
+                //获取需要转换的数据表
+                String[] tables = datasourceConfig.getTables().split(",");
+                StringBuilder tableSb = new StringBuilder("");
+                for (String table : tables) {
+                    tableSb.append(tableStr.replaceAll(formatParam("table"), table).replaceAll(formatParam("table2"), upperCase(table))); //.append("\\\n");
+                }
+                sb.append(generatorStr.replaceAll(formatParam("tableConfig"), tableSb.toString())
+                        .replaceAll(formatParam("classPath"), ShellRunerConfig.getDyhJar())
+                        .replaceAll(formatParam("driverClass"), CommonConstant.DataBaseDriver.getDescByValue(datasource.getType()))
+                        .replaceAll(formatParam("url"), datasource.getUrl())
+                        .replaceAll(formatParam("username"), datasource.getUsername())
+                        .replaceAll(formatParam("pwd"), datasource.getPwd())
+                        .replaceAll(formatParam("modelProject"), datasourceConfig.getModelProject())
+                        .replaceAll(formatParam("modelPackage"), datasourceConfig.getModelPackage())
+                        .replaceAll(formatParam("clientProject"), datasourceConfig.getClientProject())
+                        .replaceAll(formatParam("clientPackage"), datasourceConfig.getClientPackage())
+                        .replaceAll(formatParam("xmlProject"), datasourceConfig.getXmlProject())
+                        .replaceAll(formatParam("xmlPackage"), datasourceConfig.getXmlPackage())
+                );
+                System.out.println(sb.toString());
+                is = new ByteArrayInputStream(sb.toString().getBytes("UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                throw new RuntimeException("文件字符转换出错");
+            }
+            Configuration config = cp.parseConfiguration(is);
+
             //你干毛用的!!
             DefaultShellCallback shellCallback = new DefaultShellCallback(arguments.containsKey(OVERWRITE));
             // mybatis生成规则校验
@@ -181,6 +222,14 @@ public class ShellRunner {
             writeLine(getString("Progress.5")); //$NON-NLS-1$
         }
 
+    }
+
+    public static String upperCase(String str) {
+        char[] ch = str.toCharArray();
+        if (ch[0] >= 'a' && ch[0] <= 'z') {
+            ch[0] = (char) (ch[0] - 32);
+        }
+        return new String(ch);
     }
 
     public static void autoProductDetails(ShellRunerConfig shellRunerConfig) {
@@ -317,12 +366,7 @@ public class ShellRunner {
 
         for (int i = 0; i < args.length; i++) {
             if (CONFIG_FILE.equalsIgnoreCase(args[i])) {
-                if ((i + 1) < args.length) {
-                    arguments.put(CONFIG_FILE, args[i + 1]);
-                } else {
-                    errors.add(getString("RuntimeError.19", CONFIG_FILE)); //$NON-NLS-1$
-                }
-                i++;
+                arguments.put(CONFIG_FILE, "Y");
             } else if (OVERWRITE.equalsIgnoreCase(args[i])) {
                 arguments.put(OVERWRITE, "Y"); //$NON-NLS-1$
             } else if (VERBOSE.equalsIgnoreCase(args[i])) {

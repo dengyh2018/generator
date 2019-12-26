@@ -45,7 +45,7 @@ import static org.mybatis.generator.internal.util.messages.Messages.getString;
  *      &lt;taskdef name="mbgenerator"
  *               classname="org.mybatis.generator.ant.GeneratorAntTask"
  *               classpath="mybatis-generator-core-x.x.x.jar" /&gt;
- *      &lt;mbgenerator overwrite="true" configfile="generatorConfig.xml" verbose="false" &gt;
+ *      &lt;mbgenerator overwrite="true" configfile="generatorConfig.txt" verbose="false" &gt;
  *        &lt;propertyset&gt;
  *          &lt;propertyref name="generated.source.dir"/&gt;
  *        &lt;/propertyset&gt;

@@ -2,9 +2,13 @@ package org.mybatis.generator.codegen.mybatis3.javaservice.xmlparser;
 
 import com.thoughtworks.xstream.XStream;
 import org.mybatis.generator.api.ShellRunerConfig;
+import org.mybatis.generator.modules.utils.MapStorage;
+import org.mybatis.generator.modules.utils.ReadFile;
 
 import java.io.File;
 import java.util.*;
+
+import static org.mybatis.generator.modules.utils.StringFormat.formatParam;
 
 public class ConfigLoader {
 
@@ -28,10 +32,16 @@ public class ConfigLoader {
         stream.alias("controlGenerator", ControlBean.class);
         stream.useAttributeFor(ControlBean.class, "targetPackage");
 
-        Object object = stream.fromXML(new File(shellRunerConfig.getServiceCommonConfig()));
+        //Object object = stream.fromXML(new File(shellRunerConfig.getServiceCommonConfig()));
+        String serviceStr = ReadFile.readFileContent(ShellRunerConfig.getDyhServiceConfig());
+        serviceStr = serviceStr.replaceAll(formatParam("serviceProject"), MapStorage.datasourceMap.get("serviceProject"))
+                .replaceAll(formatParam("servicePackage"), MapStorage.datasourceMap.get("servicePackage"));
+        System.out.println(serviceStr);
+        Object object = stream.fromXML(serviceStr);
+
         ConfigBean config = (ConfigBean) object;
 
-        File floder = new File(shellRunerConfig.getServiceTableConfigPath());
+        File floder = new File(ShellRunerConfig.getServiceTableConfigPath());
 
         List<File> xmlFiles = new ArrayList<File>();
         listFiles(floder, xmlFiles, ".xml");

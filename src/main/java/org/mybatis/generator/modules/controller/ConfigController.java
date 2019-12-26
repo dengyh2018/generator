@@ -3,7 +3,9 @@ package org.mybatis.generator.modules.controller;
 import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.modules.R;
 import org.mybatis.generator.modules.entity.Config;
+import org.mybatis.generator.modules.entity.Datasource;
 import org.mybatis.generator.modules.service.ConfigService;
+import org.mybatis.generator.modules.service.DatasourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class ConfigController {
 
     @Autowired
     private ConfigService configService;
+
+    @Autowired
+    private DatasourceService datasourceService;
 
     /**
      * 编辑
@@ -87,9 +92,11 @@ public class ConfigController {
     public R product(@PathVariable("id") Long id) {
         try {
             Config config = configService.selectByPrimaryKey(id);
-            ShellRunner.autoProduct(config);
+            Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());
+            ShellRunner.autoProduct(config, datasource);
             return R.ok();
         } catch (Exception e) {
+            e.printStackTrace();
             return R.error();
         }
     }
