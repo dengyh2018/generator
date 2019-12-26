@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.generator.modules.mapper.ProjectMapper">
+  <resultMap extends="org.mybatis.generator.modules.mapper.ProjectBaseMapper.BaseResultMap" id="BaseResultMap" type="org.mybatis.generator.modules.entity.Project">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    <include refid="org.mybatis.generator.modules.mapper.ProjectBaseMapper.Base_Column_List" />
+  </sql>
+
+    <select id="selectByConfigId_Ip" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from project
+        where config_id = #{configId,jdbcType=BIGINT} and ip = #{ip}
+        order by create_time desc
+        limit 1
+    </select>
+
+</mapper>

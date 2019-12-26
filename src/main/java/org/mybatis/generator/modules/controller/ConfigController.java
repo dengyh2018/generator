@@ -4,14 +4,19 @@ import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.modules.R;
 import org.mybatis.generator.modules.entity.Config;
 import org.mybatis.generator.modules.entity.Datasource;
+import org.mybatis.generator.modules.entity.Project;
 import org.mybatis.generator.modules.service.ConfigService;
 import org.mybatis.generator.modules.service.DatasourceService;
+import org.mybatis.generator.modules.service.ProjectService;
+import org.mybatis.generator.modules.utils.IPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.mybatis.generator.modules.utils.StringFormat.formatParam;
 
 /**
  * @Author 0253322_dengyh
@@ -30,6 +35,9 @@ public class ConfigController {
     @Autowired
     private DatasourceService datasourceService;
 
+    @Autowired
+    private ProjectService projectService;
+
     /**
      * 编辑
      *
@@ -44,11 +52,11 @@ public class ConfigController {
             String[] table = tables.split(",");
             String[] model = models.split(",");
             if (table.length != model.length) {
-                throw new RuntimeException("数据表与实体名称长度不相等");
+                return R.error("数据表与实体名称长度不相等");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("数据表与实体名称长度不相等");
+            return R.error("数据表与实体名称长度不相等");
         }
         if (config.getId() != null) {
             configService.updateByPrimaryKeySelective(config);
@@ -104,13 +112,24 @@ public class ConfigController {
     public R product(@PathVariable("id") Long id) {
         try {
             Config config = configService.selectByPrimaryKey(id);
+            Project project = projectService.selectByConfigId_Ip(config.getId(), IPUtils.getLocalIp());
+            String newAddress = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\");
+            config.setClientProject(config.getClientProject().replaceFirst(formatParam("address"), newAddress).replaceAll("\\\\", "/"));
+            config.setXmlProject(config.getXmlProject().replaceFirst(formatParam("address"), newAddress).replaceAll("\\\\", "/"));
+            config.setServiceProject(config.getServiceProject().replaceFirst(formatParam("address"), newAddress).replaceAll("\\\\", "/"));
+            config.setModelProject(config.getModelProject().replaceFirst(formatParam("address"), newAddress).replaceAll("\\\\", "/"));
             Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());
             ShellRunner.autoProduct(config, datasource);
             return R.ok();
         } catch (Exception e) {
             e.printStackTrace();
-            return R.error();
+            return R.error(e.getMessage());
         }
     }
+
+    public static void main(String[] args) {
+        System.out.println("d:\\sadasdasd".replaceAll("\\\\", "/"));
+    }
+
 
 }

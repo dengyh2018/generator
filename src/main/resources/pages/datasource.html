@@ -160,6 +160,7 @@
                 <el-table-column prop="tables" label="数据表" align="center"></el-table-column>
                 <el-table-column label="操作" align="center">
                     <template scope="scope">
+                        <el-button type="text" size="small" @click="pj(scope.row.id)">项目地址</el-button>
                         <el-button type="text" size="small" @click="product(scope.row.id)">生成</el-button>
                         <el-button type="text" size="small" @click="editCf(scope.row.id)">编辑</el-button>
                         <el-button type="text" size="small" @click="delCf(scope.row.id)">删除</el-button>
@@ -176,6 +177,22 @@
                 </el-pagination>
             </div>-->
         </div>
+    </div>
+
+    <div v-if="showList==5" class="edit" style="max-width:1000px">
+        <h4>编辑项目地址</h4>
+        <el-form ref="datasource" :model="datasource" :rules="rules" label-position="left"
+                 label-width="100px" label-suffix="：" style="margin:50px 0 0 30px;">
+            <el-form-item label="项目地址" prop="newAddress">
+                <el-input v-model="project.newAddress" maxlength="100" clearable placeholder="请输入项目地址"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <div style="text-align:right;">
+                    <el-button type="primary" plain @click="editPj()">保 存</el-button>
+                    <el-button type="info" plain @click="goBack2()">返 回</el-button>
+                </div>
+            </el-form-item>
+        </el-form>
     </div>
 
 </div>

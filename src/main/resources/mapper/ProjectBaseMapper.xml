@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.generator.modules.mapper.ProjectBaseMapper">
+  <resultMap id="BaseResultMap" type="org.mybatis.generator.modules.entity.Project">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="config_id" jdbcType="BIGINT" property="configId" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="old_address" jdbcType="VARCHAR" property="oldAddress" />
+    <result column="new_address" jdbcType="VARCHAR" property="newAddress" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updator" jdbcType="VARCHAR" property="updator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    id, config_id, ip, old_address, new_address, creator, create_time, updator, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    delete from project
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.mybatis.generator.modules.entity.Project">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into project (config_id, ip, old_address, 
+      new_address, creator, create_time, 
+      updator, update_time)
+    values (#{configId,jdbcType=BIGINT}, #{ip,jdbcType=VARCHAR}, #{oldAddress,jdbcType=VARCHAR}, 
+      #{newAddress,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updator,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.mybatis.generator.modules.entity.Project">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="configId != null">
+        config_id,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="oldAddress != null">
+        old_address,
+      </if>
+      <if test="newAddress != null">
+        new_address,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updator != null">
+        updator,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="configId != null">
+        #{configId,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="oldAddress != null">
+        #{oldAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="newAddress != null">
+        #{newAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.mybatis.generator.modules.entity.Project">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    update project
+    <set>
+      <if test="configId != null">
+        config_id = #{configId,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="oldAddress != null">
+        old_address = #{oldAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="newAddress != null">
+        new_address = #{newAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        updator = #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.mybatis.generator.modules.entity.Project">
+    <!--
+        注意 - @mbggenerated 工具生成，勿修改 
+    -->
+    update project
+    set config_id = #{configId,jdbcType=BIGINT},
+      ip = #{ip,jdbcType=VARCHAR},
+      old_address = #{oldAddress,jdbcType=VARCHAR},
+      new_address = #{newAddress,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updator = #{updator,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -61,6 +61,10 @@ var vm = new Vue({
         datasourceId: '',
         tables: '',
         tableList: [],
+        configId: '',
+        project: {
+            newAddress: ''
+        },
     },
     methods: {
         handleCurrentChange(val) {
@@ -98,9 +102,9 @@ var vm = new Vue({
         product(configId) {
             axios.post('/config/product/' + configId, {}).then(res => {
                 if (res.data.code == 0) {
-                    alert('生成mybatis文件成功');
+                    this.$message.success('生成mybatis文件成功!');
                 } else {
-                    alert(res.data.msg);
+                    this.$message.error(res.data.msg);
                 }
             }).catch(() => {
             })
@@ -131,7 +135,7 @@ var vm = new Vue({
                 vm.fullscreenLoading = false;
                 var data = req.data;
                 if (data.code != 0) {
-                    alert(data.msg);
+                    this.$message.error(data.msg);
                     return;
                 }
                 if (data.data) {
@@ -154,7 +158,7 @@ var vm = new Vue({
                 vm.fullscreenLoading = false;
                 var data = req.data;
                 if (data.code != 0) {
-                    alert(data.msg);
+                    this.$message.error(data.msg);
                     return;
                 }
                 vm.datasource = data.data;
@@ -296,10 +300,33 @@ var vm = new Vue({
             }).catch(() => {
             });
         },
+        pj(configId) {
+            vm.configId = configId;
+            this.project.newAddress = '';
+            this.showList = 5;
+        },
+        editPj() {
+            axios.post('/project/edit', {
+                configId: vm.configId,
+                newAddress: this.project.newAddress,
+            }).then(res => {
+                this.fullscreenLoading = false;
+                if (res.data.code == 0) {
+                    this.$message.success('项目地址提交成功');
+                    this.goBack2();
+                    this.cfList();
+                } else {
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err => {
+                console.log(err)
+                this.fullscreenLoading = false;
+                this.$message.error('项目地址提交失败');
+            })
+        },
     },
     created() {
         this.getList();
-        //this.getDirectoryList();
     },
     computed: {}
 });

@@ -79,6 +79,7 @@ public class ShellRunner {
         //存储后续使用
         MapStorage.datasourceMap.put("servicePackage", datasourceConfig.getServicePackage());
         MapStorage.datasourceMap.put("serviceProject", datasourceConfig.getServiceProject());
+        MapStorage.datasourceMap.put("models", datasourceConfig.getModels());
 
         // 取出generatorConfig配置文件路径，现在需要手动生成dengyh
         String[] args = new String[]{CONFIG_FILE, OVERWRITE, VERBOSE};

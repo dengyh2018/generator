@@ -1,16 +1,16 @@
 package org.mybatis.generator.modules.mapper;
 
-import org.mybatis.generator.modules.entity.Config;
+import org.mybatis.generator.modules.entity.Project;
 
 /**
  *
- *<config Dao基础接口>
+ *<project Dao基础接口>
  *
  * @since 2019/12/26 20:27:01
- * @table config
+ * @table project
  * @mbggenerated
  */
-public interface ConfigBaseMapper {
+public interface ProjectBaseMapper {
     /**
      * @mbggenerated
      */
@@ -19,21 +19,21 @@ public interface ConfigBaseMapper {
     /**
      * @mbggenerated
      */
-    int insertSelective(Config record);
+    int insertSelective(Project record);
 
     /**
      * @mbggenerated
      */
-    Config selectByPrimaryKey(Long id);
+    Project selectByPrimaryKey(Long id);
 
     /**
      * @mbggenerated
      */
-    int updateByPrimaryKeySelective(Config record);
+    int updateByPrimaryKeySelective(Project record);
 
     /**
      * @mbggenerated
      */
     @Deprecated
-    int updateByPrimaryKey(Config record);
+    int updateByPrimaryKey(Project record);
 }
