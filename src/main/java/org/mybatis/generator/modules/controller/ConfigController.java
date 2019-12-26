@@ -38,6 +38,18 @@ public class ConfigController {
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public R edit(@RequestBody Config config) {
+        try {
+            String tables = config.getTables();
+            String models = config.getModels();
+            String[] table = tables.split(",");
+            String[] model = models.split(",");
+            if (table.length != model.length) {
+                throw new RuntimeException("数据表与实体名称长度不相等");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("数据表与实体名称长度不相等");
+        }
         if (config.getId() != null) {
             configService.updateByPrimaryKeySelective(config);
         } else {

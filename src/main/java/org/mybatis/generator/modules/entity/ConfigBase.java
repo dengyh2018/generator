@@ -7,12 +7,12 @@ import java.util.Date;
  *
  *<config Bean基础类>
  *
- * @since 2019/12/26 16:47:43
+ * @since 2019/12/26 17:17:28
  * @table config
  * @mbggenerated
  */
 public class ConfigBase implements Serializable {
-    private static final long serialVersionUID = 1577350063005L;
+    private static final long serialVersionUID = 1577351848165L;
 
     /**
      * @mbggenerated
@@ -40,9 +40,9 @@ public class ConfigBase implements Serializable {
 
     /**
      * @mbggenerated
-     * 实体名称 model
+     * 实体名称 models
      */
-    private String model;
+    private String models;
 
     /**
      * @mbggenerated
@@ -173,17 +173,17 @@ public class ConfigBase implements Serializable {
     }
 
     /**
-     * @return 获取 实体名称 config.model
+     * @return 获取 实体名称 config.models
      */
-    public String getModel() {
-        return model;
+    public String getModels() {
+        return models;
     }
 
     /**
-     * @param model 设置 实体名称 config.model
+     * @param models 设置 实体名称 config.models
      */
-    public void setModel(String model) {
-        this.model = model == null ? null : model.trim();
+    public void setModels(String models) {
+        this.models = models == null ? null : models.trim();
     }
 
     /**

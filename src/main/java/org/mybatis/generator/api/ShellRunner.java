@@ -154,9 +154,11 @@ public class ShellRunner {
                 String tableStr = ReadFile.readFileContent(ShellRunerConfig.getDyhTableConfig());
                 //获取需要转换的数据表
                 String[] tables = datasourceConfig.getTables().split(",");
+                String[] models = datasourceConfig.getModels().split(",");
                 StringBuilder tableSb = new StringBuilder("");
-                for (String table : tables) {
-                    tableSb.append(tableStr.replaceAll(formatParam("table"), table).replaceAll(formatParam("table2"), upperCase(table))); //.append("\\\n");
+                for (int i = 0; i < tables.length; i++) {
+                    String table = tables[i];
+                    tableSb.append(tableStr.replaceAll(formatParam("table"), table).replaceAll(formatParam("model"), upperCase(models[i])));
                 }
                 sb.append(generatorStr.replaceAll(formatParam("tableConfig"), tableSb.toString())
                         .replaceAll(formatParam("classPath"), ShellRunerConfig.getDyhJar())

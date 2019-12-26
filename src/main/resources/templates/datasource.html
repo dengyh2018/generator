@@ -91,7 +91,7 @@
         <h4>设置路径</h4>
         <el-form ref="datasource" :model="datasource" :rules="rules" label-position="left"
                  label-width="100px" label-suffix="：" style="margin:50px 0 0 30px;">
-            <el-form-item label="模块名称" prop="xmlProject">
+            <el-form-item label="模块名称" prop="name">
                 <el-input v-model="config.name" maxlength="100" clearable placeholder="模块名称"></el-input>
             </el-form-item>
             <el-form-item label="数据表">
@@ -100,6 +100,9 @@
                     <el-option v-for="item in tableList" :key="item.tableName" :label="item.tableName"
                                :value="item.tableName"></el-option>
                 </el-select>
+            </el-form-item>
+            <el-form-item label="实体名称" prop="models">
+                <el-input v-model="config.models" maxlength="100" clearable placeholder="实体名称"></el-input>
             </el-form-item>
             <el-form-item label="xml所在项目" prop="xmlProject">
                 <el-input v-model="config.xmlProject" maxlength="100" clearable

@@ -9,7 +9,7 @@
     <result column="datasource_id" jdbcType="BIGINT" property="datasourceId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="tables" jdbcType="VARCHAR" property="tables" />
-    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="models" jdbcType="VARCHAR" property="models" />
     <result column="xml_project" jdbcType="VARCHAR" property="xmlProject" />
     <result column="xml_package" jdbcType="VARCHAR" property="xmlPackage" />
     <result column="model_project" jdbcType="VARCHAR" property="modelProject" />
@@ -27,7 +27,7 @@
     <!--
         注意 - @mbggenerated 工具生成，勿修改 
     -->
-    id, datasource_id, name, tables, model, xml_project, xml_package, model_project, 
+    id, datasource_id, name, tables, models, xml_project, xml_package, model_project, 
     model_package, client_project, client_package, service_project, service_package, 
     creator, create_time, updator, update_time
   </sql>
@@ -55,13 +55,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into config (datasource_id, name, tables, 
-      model, xml_project, xml_package, 
+      models, xml_project, xml_package, 
       model_project, model_package, client_project, 
       client_package, service_project, service_package, 
       creator, create_time, updator, 
       update_time)
     values (#{datasourceId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{tables,jdbcType=VARCHAR}, 
-      #{model,jdbcType=VARCHAR}, #{xmlProject,jdbcType=VARCHAR}, #{xmlPackage,jdbcType=VARCHAR}, 
+      #{models,jdbcType=VARCHAR}, #{xmlProject,jdbcType=VARCHAR}, #{xmlPackage,jdbcType=VARCHAR}, 
       #{modelProject,jdbcType=VARCHAR}, #{modelPackage,jdbcType=VARCHAR}, #{clientProject,jdbcType=VARCHAR}, 
       #{clientPackage,jdbcType=VARCHAR}, #{serviceProject,jdbcType=VARCHAR}, #{servicePackage,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, 
@@ -85,8 +85,8 @@
       <if test="tables != null">
         tables,
       </if>
-      <if test="model != null">
-        model,
+      <if test="models != null">
+        models,
       </if>
       <if test="xmlProject != null">
         xml_project,
@@ -135,8 +135,8 @@
       <if test="tables != null">
         #{tables,jdbcType=VARCHAR},
       </if>
-      <if test="model != null">
-        #{model,jdbcType=VARCHAR},
+      <if test="models != null">
+        #{models,jdbcType=VARCHAR},
       </if>
       <if test="xmlProject != null">
         #{xmlProject,jdbcType=VARCHAR},
@@ -191,8 +191,8 @@
       <if test="tables != null">
         tables = #{tables,jdbcType=VARCHAR},
       </if>
-      <if test="model != null">
-        model = #{model,jdbcType=VARCHAR},
+      <if test="models != null">
+        models = #{models,jdbcType=VARCHAR},
       </if>
       <if test="xmlProject != null">
         xml_project = #{xmlProject,jdbcType=VARCHAR},
@@ -241,7 +241,7 @@
     set datasource_id = #{datasourceId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       tables = #{tables,jdbcType=VARCHAR},
-      model = #{model,jdbcType=VARCHAR},
+      models = #{models,jdbcType=VARCHAR},
       xml_project = #{xmlProject,jdbcType=VARCHAR},
       xml_package = #{xmlPackage,jdbcType=VARCHAR},
       model_project = #{modelProject,jdbcType=VARCHAR},
