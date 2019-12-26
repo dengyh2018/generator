@@ -66,7 +66,7 @@ public class Interface extends JavaElement implements CompilationUnit {
 
     public String getFormattedContent() {
         //dengyh
-        System.out.println("getType().getShortName().contains(\"Base\")==>" + getType().getShortName().contains("Base"));
+        System.out.println("java.name contains(\"Base\")==>" + getType().getShortName().contains("Base"));
 //        if (getType().getShortName().contains("Base")) {
 //            return null;
 //        }
@@ -133,7 +133,7 @@ public class Interface extends JavaElement implements CompilationUnit {
         sb.append("interface "); //$NON-NLS-1$
         sb.append(getType().getShortName());
 
-        System.out.println("getType().getShortName()==>" + getType().getShortName());
+        System.out.println("java.name==>" + getType().getShortName());
 
         //dengyh
         if (getSuperInterfaceTypes().size() > 0) {

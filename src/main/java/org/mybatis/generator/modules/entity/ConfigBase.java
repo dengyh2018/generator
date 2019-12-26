@@ -7,12 +7,12 @@ import java.util.Date;
  *
  *<config Bean基础类>
  *
- * @since 2019/12/25 13:53:16
+ * @since 2019/12/26 10:43:09
  * @table config
  * @mbggenerated
  */
 public class ConfigBase implements Serializable {
-    private static final long serialVersionUID = 1577253196158L;
+    private static final long serialVersionUID = 1577328189329L;
 
     /**
      * @mbggenerated

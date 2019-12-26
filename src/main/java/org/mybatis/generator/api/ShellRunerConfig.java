@@ -29,10 +29,9 @@ public class ShellRunerConfig {
 	}*/
 
 	public static String getPath(String path){
-	    String  getPath=ShellRunerConfig.class.getClassLoader().getResource(path).getFile().replaceFirst("^/","");
-        System.out.println("getPath:"+getPath);
+	    String getPath=ShellRunerConfig.class.getClassLoader().getResource(path).getFile().replaceFirst("^/","");
+        //System.out.println("getPath:"+getPath);
 		return getPath;
-		//return ""+path;
 	}
 
 	public void setMoKuai(String moKuai) {

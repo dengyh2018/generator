@@ -1,12 +1,12 @@
 package org.mybatis.generator.internal.db;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.mysql.jdbc.DatabaseMetaData;
 import com.mysql.jdbc.JDBC4Connection;
 import com.mysql.jdbc.JDBC4DatabaseMetaDataUsingInfoSchema;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class TableSchemaHelp {
 
@@ -20,17 +20,14 @@ public class TableSchemaHelp {
         if (connection instanceof JDBC4Connection) {
             try {
                 databaseMetaData = new JDBC4DatabaseMetaDataUsingInfoSchema((JDBC4Connection) connection, connection.getCatalog());
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
         try {
             String catalog = connection.getCatalog();
-            System.out.println(catalog);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -44,9 +41,8 @@ public class TableSchemaHelp {
             if (resultSet.next()) {
                 remarks = resultSet.getString("REMARKS");
             }
-        }
-        catch (Exception e) {
-           e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return remarks;
     }

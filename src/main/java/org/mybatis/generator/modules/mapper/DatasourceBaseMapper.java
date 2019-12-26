@@ -6,7 +6,7 @@ import org.mybatis.generator.modules.entity.Datasource;
  *
  *<datasource Dao基础接口>
  *
- * @since 2019/12/25 13:53:16
+ * @since 2019/12/26 10:43:09
  * @table datasource
  * @mbggenerated
  */

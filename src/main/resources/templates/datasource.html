@@ -21,7 +21,8 @@
         <div class="amg-condition">
             <h3>数据源管理</h3>
             <div style="display:flex;">
-                <el-input v-model="nameLike" style="width:220px;margin-right:15px;" placeholder="名称" clearable maxlength=30></el-input>
+                <el-input v-model="nameLike" style="width:220px;margin-right:15px;" placeholder="名称" clearable
+                          maxlength=30></el-input>
                 <el-button type="danger" icon="el-icon-search" @click="handleCurrentChange(1)">查询</el-button>
                 <el-button type="primary" icon="el-icon-plus" @click="add()">新建数据源</el-button>
                 <!--<el-button type="primary" icon="el-icon-plus" @click="config()">设置通用路径</el-button>-->
@@ -64,7 +65,8 @@
             </el-form-item>
             <el-form-item label="类型">
                 <el-select v-model="datasource.type" filterable placeholder="请选择类型" style="width: 100%">
-                    <el-option v-for="item in typeSelect" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                    <el-option v-for="item in typeSelect" :key="item.value" :label="item.label"
+                               :value="item.value"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="url" prop="url">
@@ -93,30 +95,36 @@
                 <el-input v-model="config.name" maxlength="100" clearable placeholder="模块名称"></el-input>
             </el-form-item>
             <el-form-item label="数据表">
-                <el-select v-model="config.tables" multiple="true" size="medium" filterable placeholder="请选择数据表" style="width: 100%">
-                    <el-option v-for="item in typeSelect" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                <el-select v-model="config.tables" multiple="true" size="medium" filterable placeholder="请选择数据表"
+                           style="width: 100%">
+                    <el-option v-for="item in tableList" :key="item.tableName" :label="item.tableName"
+                               :value="item.tableName"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="xml所在项目" prop="xmlProject">
-                <el-input v-model="config.xmlProject" maxlength="100" clearable placeholder="xml所在项目/精确到包路径(不包含包路径)"></el-input>
+                <el-input v-model="config.xmlProject" maxlength="100" clearable
+                          placeholder="xml所在项目/精确到包路径(不包含包路径)"></el-input>
             </el-form-item>
             <el-form-item label="xml包路径" prop="xmlPackage">
                 <el-input v-model="config.xmlPackage" maxlength="100" clearable placeholder="xml包路径"></el-input>
             </el-form-item>
             <el-form-item label="entity所在项目" prop="modelProject">
-                <el-input v-model="config.modelProject" maxlength="100" clearable placeholder="entity所在项目/精确到包路径(不包含包路径)"></el-input>
+                <el-input v-model="config.modelProject" maxlength="100" clearable
+                          placeholder="entity所在项目/精确到包路径(不包含包路径)"></el-input>
             </el-form-item>
             <el-form-item label="entity包路径" prop="modelPackage">
                 <el-input v-model="config.modelPackage" maxlength="100" clearable placeholder="entity包路径"></el-input>
             </el-form-item>
             <el-form-item label="dao所在项目" prop="clientProject">
-                <el-input v-model="config.clientProject" maxlength="100" clearable placeholder="dao所在项目/精确到包路径(不包含包路径)"></el-input>
+                <el-input v-model="config.clientProject" maxlength="100" clearable
+                          placeholder="dao所在项目/精确到包路径(不包含包路径)"></el-input>
             </el-form-item>
             <el-form-item label="dao包路径" prop="clientPackage">
                 <el-input v-model="config.clientPackage" maxlength="100" clearable placeholder="dao包路径"></el-input>
             </el-form-item>
             <el-form-item label="service所在项目" prop="serviceProject">
-                <el-input v-model="config.serviceProject" maxlength="100" clearable placeholder="service所在项目/精确到包路径(不包含包路径)"></el-input>
+                <el-input v-model="config.serviceProject" maxlength="100" clearable
+                          placeholder="service所在项目/精确到包路径(不包含包路径)"></el-input>
             </el-form-item>
             <el-form-item label="service包路径" prop="servicePackage">
                 <el-input v-model="config.servicePackage" maxlength="100" clearable placeholder="service包路径"></el-input>
@@ -148,6 +156,7 @@
                 <el-table-column prop="tables" label="数据表" align="center"></el-table-column>
                 <el-table-column label="操作" align="center">
                     <template scope="scope">
+                        <el-button type="text" size="small" @click="product(scope.row.id)">生成</el-button>
                         <el-button type="text" size="small" @click="editCf(scope.row.id)">编辑</el-button>
                         <el-button type="text" size="small" @click="delCf(scope.row.id)">删除</el-button>
                     </template>
@@ -167,5 +176,7 @@
 
 </div>
 </body>
+<script src="js/jquery.min.js"></script>
+<script src="js/common.js"></script>
 <script src="js/modules/datasource.js"></script>
 </html>

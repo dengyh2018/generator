@@ -48,7 +48,7 @@ public class ShellRunner {
         //moKuais.add("saas_finance");
         for (String moKuai : moKuais) {
             shellRunerConfig = new ShellRunerConfig(moKuai);
-            main2(shellRunerConfig);
+            autoProductDetails(shellRunerConfig);
         }
 
     }
@@ -73,8 +73,8 @@ public class ShellRunner {
 
     public static ShellRunerConfig shellRunerConfig = null;
 
-    public static void main2(ShellRunerConfig shellRunerConfig) {
-        // 取出dao生成配置文件路径
+    public static void autoProductDetails(ShellRunerConfig shellRunerConfig) {
+        // 取出generatorConfig配置文件路径，现在需要手动生成dengyh
         String[] args = new String[]{CONFIG_FILE, shellRunerConfig.getDaoConfigPath(), OVERWRITE, VERBOSE};
 
         System.out.println(">>>>>>>>>>执行自动代码生成<<<<<<<<<<<");
@@ -99,13 +99,11 @@ public class ShellRunner {
             return;
         }
 
-        List<String> warnings = new ArrayList<String>();
-
         String configfile = arguments.get(CONFIG_FILE);
-        System.out.println("configfile:" + configfile);
-        // 实例化dao生成配置文件11
-        File configurationFile = new File(configfile);
+        System.out.println("generatorConfig xml==>" + configfile);
 
+        // 实例化dao生成配置文件
+        File configurationFile = new File(configfile);
         // 配置文件不存在，程序退出
         if (!configurationFile.exists()) {
             writeLine(getString("RuntimeError.1", configfile)); //$NON-NLS-1$
@@ -123,30 +121,32 @@ public class ShellRunner {
             }
         }
 
-        Set<String> contexts = new HashSet<String>();
+        Set<String> contextIds = new HashSet<String>();
         if (arguments.containsKey(CONTEXT_IDS)) {
             StringTokenizer st = new StringTokenizer(arguments.get(CONTEXT_IDS), ","); //$NON-NLS-1$
             while (st.hasMoreTokens()) {
                 String s = st.nextToken().trim();
                 if (s.length() > 0) {
-                    contexts.add(s);
+                    contextIds.add(s);
                 }
             }
         }
 
+        List<String> warnings = new ArrayList<String>();
+
         try {
+            //你干毛用的!!
             ConfigurationParser cp = new ConfigurationParser(warnings);
-
-            // 将generatorConfig.xml解析成bean
+            //将generatorConfig.xml解析成List<Context> contexts
             Configuration config = cp.parseConfiguration(configurationFile);
-
+            //你干毛用的!!
             DefaultShellCallback shellCallback = new DefaultShellCallback(arguments.containsKey(OVERWRITE));
-            // mybatis生成规则bean
+            // mybatis生成规则校验
             MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, shellCallback, warnings);
-
+            //数据库自省，基于自省，然后合并/保存生成的文件。
             ProgressCallback progressCallback = arguments.containsKey(VERBOSE) ? new VerboseProgressCallback() : null;
-
-            myBatisGenerator.generate(progressCallback, contexts, fullyqualifiedTables);
+            //开始生成mybatis7788
+            myBatisGenerator.generate(progressCallback, contextIds, fullyqualifiedTables);
 
         } catch (XMLParserException e) {
             writeLine(getString("Progress.3")); //$NON-NLS-1$
@@ -154,7 +154,6 @@ public class ShellRunner {
             for (String error : e.getErrors()) {
                 writeLine(error);
             }
-
             return;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -169,8 +168,7 @@ public class ShellRunner {
             }
             return;
         } catch (InterruptedException e) {
-            // ignore (will never happen with the DefaultShellCallback)
-            ;
+            // ignore (will never happen with the DefaultShellCallback);
         }
 
         for (String warning : warnings) {
@@ -183,6 +181,7 @@ public class ShellRunner {
             writeLine();
             writeLine(getString("Progress.5")); //$NON-NLS-1$
         }
+
     }
 
     private static void usage() {

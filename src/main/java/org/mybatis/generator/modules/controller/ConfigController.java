@@ -2,9 +2,7 @@ package org.mybatis.generator.modules.controller;
 
 import org.mybatis.generator.modules.R;
 import org.mybatis.generator.modules.entity.Config;
-import org.mybatis.generator.modules.entity.Datasource;
 import org.mybatis.generator.modules.service.ConfigService;
-import org.mybatis.generator.modules.service.DatasourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +30,11 @@ public class ConfigController {
      * @param config
      * @return
      */
-    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public R edit(@RequestBody Config config) {
-        if(config.getId()!=null){
+        if (config.getId() != null) {
             configService.updateByPrimaryKeySelective(config);
-        }else{
+        } else {
             configService.insertSelective(config);
         }
         return R.ok();
@@ -48,10 +46,10 @@ public class ConfigController {
      * @param datasourceId
      * @return
      */
-    @RequestMapping(value = "/getByDatasourceId/{datasourceId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/getByDatasourceId/{datasourceId}", method = RequestMethod.POST)
     public R getByDatasourceId(@PathVariable("datasourceId") Long datasourceId) {
-        List<Config> configList=configService.queryByDatasourceId(datasourceId);
-        return R.ok().put("configList",configList);
+        List<Config> configList = configService.queryByDatasourceId(datasourceId);
+        return R.ok().put("configList", configList);
     }
 
     /**
@@ -60,10 +58,10 @@ public class ConfigController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/info/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
     public R info(@PathVariable("id") Long id) {
-        Config config=configService.selectByPrimaryKey(id);
-        return R.ok().put("data",config);
+        Config config = configService.selectByPrimaryKey(id);
+        return R.ok().put("data", config);
     }
 
     /**
@@ -72,10 +70,26 @@ public class ConfigController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/del/{id}",method = RequestMethod.POST)
+    @RequestMapping(value = "/del/{id}", method = RequestMethod.POST)
     public R del(@PathVariable("id") Long id) {
         configService.deleteByPrimaryKey(id);
         return R.ok();
+    }
+
+    /**
+     * 生成mybatis文件
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
+    public R product(@PathVariable("id") Long id) {
+        try {
+            Config config = configService.selectByPrimaryKey(id);
+            return R.ok();
+        } catch (Exception e) {
+            return R.error();
+        }
     }
 
 }

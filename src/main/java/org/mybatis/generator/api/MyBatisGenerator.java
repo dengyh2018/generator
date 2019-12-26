@@ -22,7 +22,6 @@ import org.mybatis.generator.exception.InvalidConfigurationException;
 import org.mybatis.generator.exception.ShellException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.mybatis.generator.internal.NullProgressCallback;
-import org.mybatis.generator.internal.ObjectFactory;
 import org.mybatis.generator.internal.XmlFileMergerJaxp;
 
 import java.io.*;
@@ -32,7 +31,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.mybatis.generator.internal.util.ClassloaderUtility.getCustomClassloader;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
@@ -97,6 +95,7 @@ public class MyBatisGenerator {
         } else {
             this.warnings = warnings;
         }
+
         generatedJavaFiles = new ArrayList<GeneratedJavaFile>();
         generatedXmlFiles = new ArrayList<GeneratedXmlFile>();
         projects = new HashSet<String>();
@@ -161,10 +160,10 @@ public class MyBatisGenerator {
      * @throws InterruptedException          if the method is canceled through the ProgressCallback
      */
     public void generate(ProgressCallback callback, Set<String> contextIds, Set<String> fullyQualifiedTableNames) throws SQLException, IOException, InterruptedException {
-
         if (callback == null) {
             callback = new NullProgressCallback();
         }
+
         // 清空生成java文件和xml文件集合
         generatedJavaFiles.clear();
         generatedXmlFiles.clear();
@@ -185,11 +184,11 @@ public class MyBatisGenerator {
 
         // setup custom classloader if required
         // 数据库驱动信息不为空
-        if (configuration.getClassPathEntries().size() > 0) {
+        /*if (configuration.getClassPathEntries().size() > 0) {
             // 加载数据库驱动
             ClassLoader classLoader = getCustomClassloader(configuration.getClassPathEntries());
             ObjectFactory.addExternalClassLoader(classLoader);
-        }
+        }*/
 
         // 需要生成表实例数
         int totalSteps = 0;
@@ -218,7 +217,6 @@ public class MyBatisGenerator {
 
         for (GeneratedXmlFile gxf : generatedXmlFiles) {
             projects.add(gxf.getTargetProject());
-
             File targetFile;
             String source;
             try {
@@ -229,8 +227,7 @@ public class MyBatisGenerator {
                         source = XmlFileMergerJaxp.getMergedSource(gxf, targetFile);
                     } else if (shellCallback.isOverwriteEnabled()) {
                         source = gxf.getFormattedContent();
-                        warnings.add(getString("Warning.11", //$NON-NLS-1$
-                                targetFile.getAbsolutePath()));
+                        warnings.add(getString("Warning.11", targetFile.getAbsolutePath())); //$NON-NLS-1$
                     } else {
                         source = gxf.getFormattedContent();
                         targetFile = getUniqueFileName(directory, gxf.getFileName());
@@ -246,6 +243,7 @@ public class MyBatisGenerator {
 
             callback.checkCancel();
             callback.startTask(getString("Progress.15", targetFile.getName())); //$NON-NLS-1$
+
             writeFile(targetFile, source, "UTF-8"); //$NON-NLS-1$
         }
 

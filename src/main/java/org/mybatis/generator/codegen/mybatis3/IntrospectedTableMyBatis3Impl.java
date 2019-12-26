@@ -278,7 +278,6 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
         for (AbstractJavaGenerator javaGenerator : javaModelGenerators) {
             List<CompilationUnit> compilationUnits = javaGenerator.getCompilationUnits();
 
-
             for (CompilationUnit compilationUnit : compilationUnits) {
 
                 //dengyh
@@ -304,13 +303,12 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
                     // Service不进行service重复生成
                     File dir = new File(directory.getPath() + directory.separator + gjf.getFileName());
                     if (dir.exists()) {
-                        System.out.println("Service不进行service重复生成");
+                        System.out.println(String.format("Existing file %s was not overwritten", dir.getAbsolutePath()));
                         continue;
                     }
                 }
                 // 其他代码生成
                 else {
-
                     gjf = new GeneratedJavaFile(compilationUnit, context.getJavaModelGeneratorConfiguration().getTargetProject(),
                             context.getProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING), context.getJavaFormatter());
                 }
@@ -334,7 +332,7 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
         }
 
         /**
-         * 生成Dao 文件
+         * 生成Dao文件
          */
         for (AbstractJavaGenerator javaGenerator : clientGenerators) {
             List<CompilationUnit> compilationUnits = javaGenerator.getCompilationUnits();

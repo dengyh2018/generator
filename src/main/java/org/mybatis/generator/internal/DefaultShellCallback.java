@@ -29,9 +29,6 @@ import org.mybatis.generator.exception.ShellException;
 public class DefaultShellCallback implements ShellCallback {
     private boolean overwrite;
 
-    /**
-     *  
-     */
     public DefaultShellCallback(boolean overwrite) {
         super();
         this.overwrite = overwrite;

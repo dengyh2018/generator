@@ -396,29 +396,27 @@ public class Context extends PropertyHolder {
         Connection connection = null;
 
         try {
+            //Connecting to the Database
             callback.startTask(getString("Progress.0")); //$NON-NLS-1$
-            // �������ݿ�����
+            // 获取数据库连接
             connection = getConnection();
 
             TableSchemaHelp tableSchemaHelp = new TableSchemaHelp(connection);
 
-            DatabaseIntrospector databaseIntrospector = new DatabaseIntrospector(this, connection.getMetaData(), tableSchemaHelp, javaTypeResolver,
-                    warnings);
+            DatabaseIntrospector databaseIntrospector =
+                    new DatabaseIntrospector(this, connection.getMetaData(), tableSchemaHelp, javaTypeResolver, warnings);
 
-            // ����������Ҫ���ɵı�ȥ����ȥ��Ӧ�ı��ֶ���Ϣ
+            // 数据表配置信息
             for (TableConfiguration tc : tableConfigurations) {
-                // ��ȡ����
+                // 数据表名
                 String tableName = composeFullyQualifiedTableName(tc.getCatalog(), tc.getSchema(), tc.getTableName(), '.');
-
                 if (fullyQualifiedTableNames != null && fullyQualifiedTableNames.size() > 0) {
                     if (!fullyQualifiedTableNames.contains(tableName)) {
                         continue;
                     }
                 }
-                // ��ȡ��ı�ע
+                // 表的备注
                 String tableRemark = tableSchemaHelp.getTableRemark(tableName);
-                // ��ע��Ϊ��ʱ����table�ı�ע��ֹ��tablesRemarks
-                // map�У���������java�ļ�(bean/mapper)ע��
                 if (tableRemark != null) {
                     tablesRemarks.put(tableName, tableRemark);
                 }
@@ -428,10 +426,11 @@ public class Context extends PropertyHolder {
                     continue;
                 }
 
+                //Introspecting table
                 callback.startTask(getString("Progress.1", tableName)); //$NON-NLS-1$
-                // ����ϸ��Ϣ
-                List<IntrospectedTable> tables = databaseIntrospector.introspectTables(tc);
 
+                // 获取自省数据表集合
+                List<IntrospectedTable> tables = databaseIntrospector.introspectTables(tc);
                 if (tables != null) {
                     introspectedTables.addAll(tables);
                 }
@@ -439,8 +438,8 @@ public class Context extends PropertyHolder {
                 if (introspectedTables != null) {
                     for (IntrospectedTable introspectedTable : introspectedTables) {
                         FullyQualifiedTable fully = introspectedTable.getFullyQualifiedTable();
-                        String tableNamei = introspectedTable.getFullyQualifiedTable().getIntrospectedTableName();
-                        String remarks = tablesRemarks.get(tableNamei);
+                        String introspectedTableName = introspectedTable.getFullyQualifiedTable().getIntrospectedTableName();
+                        String remarks = tablesRemarks.get(introspectedTableName);
                         if (remarks != null) {
                             fully.setRemarks(remarks);
                         }
@@ -467,9 +466,9 @@ public class Context extends PropertyHolder {
         return steps;
     }
 
-    public void generateFiles(ProgressCallback callback, List<GeneratedJavaFile> generatedJavaFiles, List<GeneratedXmlFile> generatedXmlFiles,
-                              List<String> warnings) throws InterruptedException {
-
+    //dengyh generateFiles
+    public void generateFiles(ProgressCallback callback, List<GeneratedJavaFile> generatedJavaFiles,
+                              List<GeneratedXmlFile> generatedXmlFiles, List<String> warnings) throws InterruptedException {
         pluginAggregator = new PluginAggregator();
         for (PluginConfiguration pluginConfiguration : pluginConfigurations) {
             Plugin plugin = ObjectFactory.createPlugin(this, pluginConfiguration);
@@ -486,7 +485,7 @@ public class Context extends PropertyHolder {
                 callback.checkCancel();
 
                 introspectedTable.initialize();
-                // �������ɴ���
+                // ??????
                 introspectedTable.calculateGenerators(warnings, callback);
                 generatedJavaFiles.addAll(introspectedTable.getGeneratedJavaFiles());
                 generatedXmlFiles.addAll(introspectedTable.getGeneratedXmlFiles());
@@ -502,7 +501,6 @@ public class Context extends PropertyHolder {
 
     private Connection getConnection() throws SQLException {
         Connection connection = ConnectionFactory.getInstance().getConnection(jdbcConnectionConfiguration);
-
         return connection;
     }
 
@@ -511,8 +509,7 @@ public class Context extends PropertyHolder {
             try {
                 connection.close();
             } catch (SQLException e) {
-                // ignore
-                ;
+                // ignore;
             }
         }
     }

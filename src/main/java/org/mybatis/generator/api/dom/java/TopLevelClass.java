@@ -81,7 +81,7 @@ public class TopLevelClass extends InnerClass implements CompilationUnit {
             sb.append("package "); //$NON-NLS-1$
             sb.append(getType().getPackageName());
             modelPackageName = getType().getPackageName();
-            System.out.println("modelPackageName==>" + modelPackageName);
+            System.out.println("modelPackage==>" + modelPackageName);
             sb.append(';');
             newLine(sb);
             newLine(sb);
