@@ -184,7 +184,8 @@
         <el-form ref="datasource" :model="datasource" :rules="rules" label-position="left"
                  label-width="100px" label-suffix="：" style="margin:50px 0 0 30px;">
             <el-form-item label="项目地址" prop="newAddress">
-                <el-input v-model="project.newAddress" maxlength="100" clearable placeholder="请输入项目地址"></el-input>
+                <el-input v-model="project.newAddress" maxlength="100" clearable
+                          placeholder="请输入项目地址，精确到项目名"></el-input>
             </el-form-item>
             <el-form-item>
                 <div style="text-align:right;">
