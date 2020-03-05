@@ -4,7 +4,7 @@ server:
     max-threads: 1000
     min-spare-threads: 30
     max-http-post-size: -1
-  port: 9001
+  port: 9999
 
 spring:
   profiles:

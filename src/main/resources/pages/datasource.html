@@ -96,7 +96,7 @@
             </el-form-item>
             <el-form-item label="数据表" label-width="130px">
                 <el-select v-model="config.tables" multiple="true" size="medium" filterable placeholder="请选择数据表"
-                           style="width: 100%">
+                           style="width: 100%" @change="ouputEntity">
                     <el-option v-for="item in tableList" :key="item.tableName" :label="item.tableName"
                                :value="item.tableName"></el-option>
                 </el-select>

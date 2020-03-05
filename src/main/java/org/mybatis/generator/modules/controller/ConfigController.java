@@ -113,11 +113,14 @@ public class ConfigController {
         try {
             Config config = configService.selectByPrimaryKey(id);
             Project project = projectService.selectByConfigId_Ip(config.getId(), IPUtils.getLocalIp());
-            String newAddress = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\");
-            config.setClientProject(config.getClientProject().replaceFirst(formatParam("address"), newAddress).replaceAll("\\\\", "/"));
-            config.setXmlProject(config.getXmlProject().replaceFirst(formatParam("address"), newAddress).replaceAll("\\\\", "/"));
-            config.setServiceProject(config.getServiceProject().replaceFirst(formatParam("address"), newAddress).replaceAll("\\\\", "/"));
-            config.setModelProject(config.getModelProject().replaceFirst(formatParam("address"), newAddress).replaceAll("\\\\", "/"));
+            String address = "";
+            if (project != null) {
+                address = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\");
+            }
+            config.setClientProject(getAllPath(address, config.getClientProject()));
+            config.setXmlProject(getAllPath(address, config.getXmlProject()));
+            config.setServiceProject(getAllPath(address, config.getServiceProject()));
+            config.setModelProject(getAllPath(address, config.getModelProject()));
             Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());
             ShellRunner.autoProduct(config, datasource);
             return R.ok();
@@ -127,9 +130,12 @@ public class ConfigController {
         }
     }
 
+    public String getAllPath(String address, String path) {
+        return path.replaceFirst(formatParam("address"), address).replaceAll("\\\\", "/");
+    }
+
     public static void main(String[] args) {
         System.out.println("d:\\sadasdasd".replaceAll("\\\\", "/"));
     }
-
 
 }

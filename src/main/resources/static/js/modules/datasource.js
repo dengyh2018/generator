@@ -324,6 +324,25 @@ var vm = new Vue({
                 this.$message.error('项目地址提交失败');
             })
         },
+        ouputEntity(value) {
+            if (value.length == 0) {
+                this.config.models = '';
+            } else {
+                let entitys = [];
+                value.forEach(entity => {
+                    entity = entity.toString().toLowerCase();
+                    let sub = entity.toString().split('_');
+                    let upEntity = '';
+                    sub.forEach(s => {
+                        s = s.substring(0, 1).toUpperCase() + s.substring(1)
+                        upEntity = upEntity + s;
+                    })
+                    entitys.push(upEntity);
+                });
+                let entitysStr = entitys.join(",");
+                this.config.models = entitysStr;
+            }
+        },
     },
     created() {
         this.getList();
