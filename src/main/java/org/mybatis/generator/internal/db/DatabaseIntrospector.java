@@ -202,6 +202,7 @@ public class DatabaseIntrospector {
             throws SQLException {
 
         // get the raw columns from the DB
+        //dengyh数据库字段
         Map<ActualTableName, List<IntrospectedColumn>> columns = getColumns(tc);
 
         if (columns.isEmpty()) {
@@ -215,8 +216,7 @@ public class DatabaseIntrospector {
         applyColumnOverrides(tc, columns);
         calculateIdentityColumns(tc, columns);
 
-        List<IntrospectedTable> introspectedTables = calculateIntrospectedTables(
-                tc, columns);
+        List<IntrospectedTable> introspectedTables = calculateIntrospectedTables(tc, columns);
 
         // now introspectedTables has all the columns from all the
         // tables in the configuration. Do some validation...
@@ -667,8 +667,7 @@ public class DatabaseIntrospector {
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_TABLE_NAME),
                     delimitIdentifiers, context);
 
-            IntrospectedTable introspectedTable = ObjectFactory
-                    .createIntrospectedTable(tc, table, context);
+            IntrospectedTable introspectedTable = ObjectFactory.createIntrospectedTable(tc, table, context);
 
             for (IntrospectedColumn introspectedColumn : entry.getValue()) {
                 introspectedTable.addColumn(introspectedColumn);

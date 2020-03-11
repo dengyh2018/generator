@@ -433,6 +433,17 @@ public class Context extends PropertyHolder {
                 List<IntrospectedTable> tables = databaseIntrospector.introspectTables(tc);
                 if (tables != null) {
                     introspectedTables.addAll(tables);
+                    //获取主键ID，以便获取
+                    for (IntrospectedTable table : introspectedTables) {
+                        List<IntrospectedColumn> primaryKeyColumns = table.getPrimaryKeyColumns();
+                        if (primaryKeyColumns != null && primaryKeyColumns.size() > 0) {
+                            StringBuilder sb = new StringBuilder("");
+                            for (IntrospectedColumn column : primaryKeyColumns) {
+                                sb.append(column.getActualColumnName()).append(",");
+                            }
+                            tc.getGeneratedKey().setColumn(sb.toString().replaceFirst(",$", ""));
+                        }
+                    }
                 }
 
                 if (introspectedTables != null) {
