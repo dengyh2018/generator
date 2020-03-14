@@ -95,11 +95,16 @@
                 <el-input v-model="config.name" maxlength="100" clearable placeholder="模块名称"></el-input>
             </el-form-item>
             <el-form-item label="数据表" label-width="130px">
-                <el-select v-model="config.tables" multiple="true" size="medium" filterable placeholder="请选择数据表"
+                <el-select v-model="config.tables" multiple="true" size="medium" filterable
+                           placeholder="请选择数据表"
                            style="width: 100%" @change="ouputEntity">
                     <el-option v-for="item in tableList" :key="item.tableName" :label="item.tableName"
                                :value="item.tableName"></el-option>
                 </el-select>
+            </el-form-item>
+            <el-form-item label="过滤表名前缀" label-width="130px" prop="ignoreWords">
+                <el-input v-model="config.ignoreWords" maxlength="100" clearable placeholder="过滤表名前缀"
+                          @change="ignore"></el-input>
             </el-form-item>
             <el-form-item label="实体名称" label-width="130px" prop="models">
                 <el-input v-model="config.models" maxlength="100" clearable

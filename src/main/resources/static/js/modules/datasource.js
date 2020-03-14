@@ -47,6 +47,7 @@ var vm = new Vue({
             id: '',
             name: '',
             tables: '',
+            ignoreWords: '',
             models: '',
             datasourceId: '',
             xmlProject: '',
@@ -118,6 +119,7 @@ var vm = new Vue({
                     id: '',
                     name: '',
                     tables: '',
+                    ignoreWords: '',
                     models: '',
                     datasourceId: vm.datasourceId,
                     xmlProject: '',
@@ -200,6 +202,7 @@ var vm = new Vue({
                 datasourceId: vm.datasourceId,
                 name: this.config.name,
                 tables: this.config.tables.join(','),
+                ignoreWords: this.config.ignoreWords,
                 models: this.config.models,
                 xmlProject: this.config.xmlProject,
                 xmlPackage: this.config.xmlPackage,
@@ -330,7 +333,8 @@ var vm = new Vue({
             } else {
                 let entitys = [];
                 value.forEach(entity => {
-                    entity = entity.toString().toLowerCase();
+                    entity = entity.toString().replace(this.config.ignoreWords, "").toLowerCase();
+                    console.info(entity);
                     let sub = entity.toString().split('_');
                     let upEntity = '';
                     sub.forEach(s => {
@@ -342,6 +346,9 @@ var vm = new Vue({
                 let entitysStr = entitys.join(",");
                 this.config.models = entitysStr;
             }
+        },
+        ignore(value) {
+            this.ouputEntity(this.config.tables);
         },
     },
     created() {

@@ -7,12 +7,12 @@ import java.util.Date;
  *
  *<config Bean基础类>
  *
- * @since 2019/12/26 20:29:37
+ * @since 2020/03/14 10:54:49
  * @table config
  * @mbggenerated
  */
 public class ConfigBase implements Serializable {
-    private static final long serialVersionUID = 1577363377168L;
+    private static final long serialVersionUID = 1584154489692L;
 
     /**
      * @mbggenerated
@@ -37,6 +37,12 @@ public class ConfigBase implements Serializable {
      * 数据表 tables
      */
     private String tables;
+
+    /**
+     * @mbggenerated
+     * 忽略表名部分 ignore_words
+     */
+    private String ignoreWords;
 
     /**
      * @mbggenerated
@@ -170,6 +176,20 @@ public class ConfigBase implements Serializable {
      */
     public void setTables(String tables) {
         this.tables = tables == null ? null : tables.trim();
+    }
+
+    /**
+     * @return 获取 忽略表名部分 config.ignore_words
+     */
+    public String getIgnoreWords() {
+        return ignoreWords;
+    }
+
+    /**
+     * @param ignoreWords 设置 忽略表名部分 config.ignore_words
+     */
+    public void setIgnoreWords(String ignoreWords) {
+        this.ignoreWords = ignoreWords == null ? null : ignoreWords.trim();
     }
 
     /**

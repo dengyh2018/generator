@@ -7,12 +7,12 @@ import java.util.Date;
  *
  *<datasource Bean基础类>
  *
- * @since 2019/12/26 20:29:36
+ * @since 2020/03/14 10:54:49
  * @table datasource
  * @mbggenerated
  */
 public class DatasourceBase implements Serializable {
-    private static final long serialVersionUID = 1577363376972L;
+    private static final long serialVersionUID = 1584154489903L;
 
     /**
      * @mbggenerated
