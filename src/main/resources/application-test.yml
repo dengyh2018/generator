@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://o2omysql.m.aomygod.api:3306/o2o_generate?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/generate?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: dev
     password: dev123456
     initialSize: 5
