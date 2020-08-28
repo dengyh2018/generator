@@ -31,10 +31,10 @@ var vm = new Vue({
         typeSelect: [{
             value: 'mysql',
             label: 'mysql'
-        }, {
+        }/*, {
             value: 'oracle',
             label: 'oracle'
-        }],
+        }*/],
         datasource: {
             id: '',
             name: '',
