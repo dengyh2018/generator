@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/generate?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: dev
-    password: dev123456
+    password: dev12345678
     initialSize: 5
     maxActive: 50
     minIdle: 10
