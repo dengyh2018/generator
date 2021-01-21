@@ -115,7 +115,7 @@ public class ConfigController {
             Config config = configService.selectByPrimaryKey(id);
             //我告诉你这只是个测试test-3-22333332-1
             Project project = projectService.selectByConfigId_Ip(config.getId(), IPUtils.getLocalIp());
-            String address = "";
+            String address = "";//234234234
             if (project != null) {
                 address = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\");
             }
@@ -124,7 +124,7 @@ public class ConfigController {
             config.setServiceProject(getAllPath(address, config.getServiceProject()));
             config.setModelProject(getAllPath(address, config.getModelProject()));
             Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());
-            ShellRunner.autoProduct(config, datasource);
+            ShellRunner.autoProduct(config, datasource);//324234234
             return R.ok();
         } catch (Exception e) {
             e.printStackTrace();
