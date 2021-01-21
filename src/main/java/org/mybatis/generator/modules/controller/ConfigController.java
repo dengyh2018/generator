@@ -125,6 +125,7 @@ public class ConfigController {
             config.setModelProject(getAllPath(address, config.getModelProject()));
             Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());
             ShellRunner.autoProduct(config, datasource);
+            //我告诉你这只是个测试
             return R.ok();
         } catch (Exception e) {
             e.printStackTrace();
