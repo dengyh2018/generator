@@ -115,10 +115,10 @@ public class ConfigController {
             Config config = configService.selectByPrimaryKey(id);
             //我告诉你这只是个测试test-3-22333332-1
             Project project = projectService.selectByConfigId_Ip(config.getId(), IPUtils.getLocalIp());
-            String address = "";
+            String address = "";//234234242
             if (project != null) {
                 address = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\");
-            }
+            }//234234234
             config.setClientProject(getAllPath(address, config.getClientProject()));
             config.setXmlProject(getAllPath(address, config.getXmlProject()));
             config.setServiceProject(getAllPath(address, config.getServiceProject()));
