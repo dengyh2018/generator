@@ -123,7 +123,7 @@ public class ConfigController {
             config.setModelProject(getAllPath(address, config.getModelProject()));
             Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());
             ShellRunner.autoProduct(config, datasource);
-            return R.ok();
+            return R.ok(); //23232323   //asadadasd   //asadadasd
         } catch (Exception e) {
             e.printStackTrace();
             return R.error(e.getMessage());
