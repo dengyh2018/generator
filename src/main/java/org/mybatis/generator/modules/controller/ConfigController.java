@@ -121,8 +121,8 @@ public class ConfigController {
             config.setXmlProject(getAllPath(address, config.getXmlProject()));
             config.setServiceProject(getAllPath(address, config.getServiceProject()));
             config.setModelProject(getAllPath(address, config.getModelProject()));
-            Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());
-            ShellRunner.autoProduct(config, datasource);
+            Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());  //d22
+            ShellRunner.autoProduct(config, datasource);//safaaf
             return R.ok(); //23232323   //asadadasd   //asadadasd
         } catch (Exception e) {
             e.printStackTrace();
