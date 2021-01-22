@@ -111,7 +111,9 @@ public class ConfigController {
     @RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
     public R product(@PathVariable("id") Long id) {
         try {
+            //11111
             Config config = configService.selectByPrimaryKey(id);
+            //121212
             Project project = projectService.selectByConfigId_Ip(config.getId(), IPUtils.getLocalIp());
             String address = "";
             if (project != null) {
@@ -123,7 +125,7 @@ public class ConfigController {
             config.setModelProject(getAllPath(address, config.getModelProject()));
             Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());
             ShellRunner.autoProduct(config, datasource);
-            return R.ok();
+            return R.ok();//asdasdaddsa
         } catch (Exception e) {
             e.printStackTrace();
             return R.error(e.getMessage());
