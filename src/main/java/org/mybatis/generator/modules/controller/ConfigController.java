@@ -126,7 +126,7 @@ public class ConfigController {
             return R.ok(); //23232323   //asadadasd   //asadadasd
         } catch (Exception e) {
             e.printStackTrace();
-            return R.error(e.getMessage());
+            return R.error(e.getMessage()); //sdfsdfsdfsdfsdfsdf
         }
     }
 
