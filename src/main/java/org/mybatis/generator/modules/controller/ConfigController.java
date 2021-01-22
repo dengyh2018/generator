@@ -125,7 +125,7 @@ public class ConfigController {
             ShellRunner.autoProduct(config, datasource);//safaaf
             return R.ok(); //23232323   //asadadasd   //asadadasd
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();  //阿达奥术大师多
             return R.error(e.getMessage());
         }
     }
