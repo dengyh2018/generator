@@ -125,8 +125,8 @@ public class ConfigController {
             ShellRunner.autoProduct(config, datasource);//safaaf
             return R.ok(); //23232323   //asadadasd   //asadadasd
         } catch (Exception e) {
-            e.printStackTrace();
-            return R.error(e.getMessage());
+            e.printStackTrace();//asfdasddasd
+            return R.error(e.getMessage());  //dsadadasasdasad
         }
     }
 
