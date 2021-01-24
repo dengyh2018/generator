@@ -124,7 +124,7 @@ public class ConfigController {
             Datasource datasource = datasourceService.selectByPrimaryKey(config.getDatasourceId());  //d22
             ShellRunner.autoProduct(config, datasource);//safaaf
             return R.ok(); //23232323   //asadadasd   //asadadasd
-        } catch (Exception e) {
+        } catch (Exception e) {//dyh-master
             e.printStackTrace();//asfdasddasd
             return R.error(e.getMessage());  //dsadadasasdasad    ///asdadasdas
         }
