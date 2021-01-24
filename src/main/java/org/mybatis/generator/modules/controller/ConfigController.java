@@ -116,7 +116,7 @@ public class ConfigController {
             String address = "";
             if (project != null) {
                 address = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\");
-            }
+            }//testa-1
             config.setClientProject(getAllPath(address, config.getClientProject()));
             config.setXmlProject(getAllPath(address, config.getXmlProject()));
             config.setServiceProject(getAllPath(address, config.getServiceProject()));
