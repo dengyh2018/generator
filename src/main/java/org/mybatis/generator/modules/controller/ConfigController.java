@@ -116,7 +116,7 @@ public class ConfigController {
             String address = "";
             if (project != null) {
                 address = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\"); //dyh-1
-            }
+            } //dyh-继续提交
             config.setClientProject(getAllPath(address, config.getClientProject()));
             config.setXmlProject(getAllPath(address, config.getXmlProject()));
             config.setServiceProject(getAllPath(address, config.getServiceProject()));
