@@ -46,7 +46,7 @@ public class ShellRunner {
 
     public static void autoProduct(Config datasourceConfig, Datasource datasource) {
         autoProductDetails(datasourceConfig, datasource);
-    }
+    }  //asdadada
 
     private static final String CONFIG_FILE = "-configfile"; //$NON-NLS-1$
 
