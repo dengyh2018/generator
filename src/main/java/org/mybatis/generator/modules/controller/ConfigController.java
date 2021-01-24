@@ -111,9 +111,9 @@ public class ConfigController {
     @RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
     public R product(@PathVariable("id") Long id) {
         try {
-            Config config = configService.selectByPrimaryKey(id);   //testb-2
+            Config config = configService.selectByPrimaryKey(id);
             Project project = projectService.selectByConfigId_Ip(config.getId(), IPUtils.getLocalIp());
-            String address = "";//test-b
+            String address = "";
             if (project != null) {
                 address = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\"); //dyh-1
             } //dyh-继续提交
