@@ -48,7 +48,7 @@ public class ShellRunner {
         autoProductDetails(datasourceConfig, datasource);
     }  //asdadada
 
-    private static final String CONFIG_FILE = "-configfile"; //$NON-NLS-1$
+    private static final String CONFIG_FILE = "-configfile"; //$NON-NLS-1$   //adadasdss
 
     private static final String OVERWRITE = "-overwrite"; //$NON-NLS-1$
 
