@@ -115,7 +115,7 @@ public class ConfigController {
             Project project = projectService.selectByConfigId_Ip(config.getId(), IPUtils.getLocalIp());
             String address = "";
             if (project != null) {
-                address = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\");
+                address = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\"); //dyh-1
             }
             config.setClientProject(getAllPath(address, config.getClientProject()));
             config.setXmlProject(getAllPath(address, config.getXmlProject()));
