@@ -126,7 +126,7 @@ public class ConfigController {
             return R.ok(); //23232323   //asadadasd   //asadadasd
         } catch (Exception e) {//dyh-master
             e.printStackTrace();//asfdasddasd
-            return R.error(e.getMessage());  //dsadadasasdasad    ///asdadasdas   、、阿达阿达的
+            return R.error(e.getMessage());  //dsadadasasdasad    ///asdadasdas   //asdasdsa   //asdasdasdasd
         }
     }
 
