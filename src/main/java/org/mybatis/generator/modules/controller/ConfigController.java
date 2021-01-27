@@ -112,7 +112,7 @@ public class ConfigController {
     public R product(@PathVariable("id") Long id) {
         try {
             Config config = configService.selectByPrimaryKey(id);
-            Project project = projectService.selectByConfigId_Ip(config.getId(), IPUtils.getLocalIp());   //re-2  //re-3
+            Project project = projectService.selectByConfigId_Ip(config.getId(), IPUtils.getLocalIp());
             String address = "";//test-b
             if (project != null) {
                 address = project.getNewAddress().replaceAll("\\\\", "\\\\\\\\"); //dyh-1
